@@ -11,46 +11,49 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (loadingSequence) {
         setTimeout(() => {
-            // Shutter animation
+            // Shutter animation with huge haptic vibration
             cameraContainer.classList.add("animate-camera-shutter");
 
             setTimeout(() => {
-                // Trigger flash
-                loadingFlash.style.transform = "translate(-50%, -15%) scale(85)";
-                
-                loadingFlash.animate([
-                    { opacity: 0 },
-                    { opacity: 1, offset: 0.25 },
-                    { opacity: 1, offset: 0.5 },
-                    { opacity: 0 }
-                ], { duration: 1000, fill: "forwards", easing: "ease-out" });
+                // Trigger flash fill that covers screen
+                loadingFlash.style.opacity = "1";
+                loadingFlash.classList.add("animate-flash-fill");
 
                 setTimeout(() => {
+                    // Hide camera once screen is fully flashed
                     cameraContainer.style.opacity = "0";
                     loadingSequence.style.backgroundColor = "transparent";
-                }, 200);
+                }, 300);
 
                 setTimeout(() => {
+                    // Reveal app as flash fades out
                     loadingSequence.style.display = "none";
-                    appContainer.classList.remove("hidden");
-                    appContainer.classList.add("animate-fade-in");
+                    appContainer.classList.remove("opacity-0");
                     document.body.style.overflow = '';
-                }, 900);
-            }, 100);
-        }, 150);
+                }, 1200);
+            }, 150);
+        }, 100);
+    } else {
+        // If there's no loading sequence (like on sub-pages), unlock scroll immediately
+        document.body.style.overflow = '';
+        if (appContainer) {
+            
+            // tiny delay to ensure CSS transition triggers properly on non-home pages
+            setTimeout(() => {
+               appContainer.classList.remove("opacity-0");
+            }, 50);
+        }
     }
 
     // 2. Navbar Scroll
     const navbar = document.getElementById("navbar");
+    // Ensure navbar is always dark
     if (navbar) {
+        navbar.classList.add("bg-brand-black/90", "backdrop-blur-md", "py-4", "shadow-sm", "shadow-white/5");
+        navbar.classList.remove("bg-transparent", "py-6");
+        
         window.addEventListener("scroll", () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add("bg-brand-black/90", "backdrop-blur-md", "py-4", "shadow-sm", "shadow-white/5");
-                navbar.classList.remove("bg-transparent", "py-6");
-            } else {
-                navbar.classList.add("bg-transparent", "py-6");
-                navbar.classList.remove("bg-brand-black/90", "backdrop-blur-md", "py-4", "shadow-sm", "shadow-white/5");
-            }
+            // Keep it simple, just enforce the dark state if needed, but it shouldn't revert
         });
     }
 
@@ -117,65 +120,73 @@ document.addEventListener("DOMContentLoaded", () => {
         const linesDOM = document.querySelectorAll(".narrative-line");
         const indicatorsDOM = document.querySelectorAll(".narrative-indicator");
 
+        let ticking = false;
         window.addEventListener("scroll", () => {
-            const rect = narrativeSection.getBoundingClientRect();
-            // scroll progress between 0 and 1
-            // Improved calculation for sticky section progress
-            const totalScrollable = rect.height - window.innerHeight;
-            const currentScroll = -rect.top;
-            const progress = Math.min(Math.max(currentScroll / totalScrollable, 0), 1);
-            
-            const step = 1 / narrativeLines.length;
-            const activeIndex = Math.min(Math.floor(progress / step), narrativeLines.length - 1);
-            
-            linesDOM.forEach((line, i) => {
-                const center = (i + 0.5) * step;
-                let opacity = 0;
-                let scale = 0.85;
-                let y = 350;
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const rect = narrativeSection.getBoundingClientRect();
+                    // scroll progress between 0 and 1
+                    // Improved calculation for sticky section progress
+                    const totalScrollable = rect.height - window.innerHeight;
+                    const currentScroll = -rect.top;
+                    const progress = Math.min(Math.max(currentScroll / totalScrollable, 0), 1);
+                    
+                    const step = 1 / narrativeLines.length;
+                    const activeIndex = Math.min(Math.floor(progress / step), narrativeLines.length - 1);
+                    
+                    linesDOM.forEach((line, i) => {
+                        const center = (i + 0.5) * step;
+                        let opacity = 0;
+                        let scale = 0.85;
+                        let y = 350;
 
-                const dist = progress - center;
+                        const dist = progress - center;
 
-                // Opacity curve
-                if (Math.abs(dist) < 1.0 * step) {
-                    opacity = 1 - Math.abs(dist) / (1.0 * step);
-                }
+                        // Opacity curve
+                        if (Math.abs(dist) < 1.0 * step) {
+                            opacity = 1 - Math.abs(dist) / (1.0 * step);
+                        }
 
-                // Transform curve
-                if (Math.abs(dist) < 1.0 * step) {
-                    scale = 0.85 + (0.3 * (1 - Math.abs(dist) / step));
-                }
+                        // Transform curve
+                        if (Math.abs(dist) < 1.0 * step) {
+                            scale = 0.85 + (0.3 * (1 - Math.abs(dist) / step));
+                        }
 
-                if (dist < 0) {
-                    y = Math.min(350, Math.max(0, 350 * Math.abs(dist) / step));
-                } else {
-                    y = -Math.min(350, Math.max(0, 350 * Math.abs(dist) / step));
-                }
+                        if (dist < 0) {
+                            y = Math.min(350, Math.max(0, 350 * Math.abs(dist) / step));
+                        } else {
+                            y = -Math.min(350, Math.max(0, 350 * Math.abs(dist) / step));
+                        }
 
-                line.style.opacity = Math.max(0, opacity);
-                line.style.transform = `translateY(${y}px) scale(${scale})`;
+                        line.style.opacity = Math.max(0, opacity);
+                        line.style.transform = `translateY(${y}px) scale(${scale})`;
 
-                // Indicator
-                if (indicatorsDOM[i]) {
-                    const isActive = (i === activeIndex);
-                    indicatorsDOM[i].style.height = isActive ? '24px' : '4px';
-                    indicatorsDOM[i].style.backgroundColor = isActive ? 'rgba(237,33,39,1)' : 'rgba(255,255,255,0.1)';
-                    indicatorsDOM[i].style.borderRadius = isActive ? '2px' : '50%';
-                    indicatorsDOM[i].style.transition = 'all 0.3s ease';
-                }
-            });
+                        // Indicator
+                        if (indicatorsDOM[i]) {
+                            const isActive = (i === activeIndex);
+                            indicatorsDOM[i].style.height = isActive ? '24px' : '4px';
+                            indicatorsDOM[i].style.backgroundColor = isActive ? 'rgba(237,33,39,1)' : 'rgba(255,255,255,0.1)';
+                            indicatorsDOM[i].style.borderRadius = isActive ? '2px' : '50%';
+                            indicatorsDOM[i].style.transition = 'all 0.3s ease';
+                        }
+                    });
 
-            // CTA Appears earlier and marks the end of narrative logic
-            const ctaThreshold = 0.92; 
-            if (progress > ctaThreshold && narrativeCta) {
-                const ctaProgress = (progress - ctaThreshold) / (1 - ctaThreshold);
-                narrativeCta.style.opacity = ctaProgress.toString();
-                narrativeCta.style.pointerEvents = "auto";
-                narrativeCta.style.transform = `translateY(${(1 - ctaProgress) * 20}px) scale(${0.9 + 0.1 * ctaProgress})`;
-            } else if (narrativeCta) {
-                narrativeCta.style.opacity = "0";
-                narrativeCta.style.pointerEvents = "none";
-                narrativeCta.style.transform = "translateY(20px) scale(0.9)";
+                    // CTA Appears earlier and marks the end of narrative logic
+                    const ctaThreshold = 0.92; 
+                    if (progress > ctaThreshold && narrativeCta) {
+                        const ctaProgress = (progress - ctaThreshold) / (1 - ctaThreshold);
+                        narrativeCta.style.opacity = ctaProgress.toString();
+                        narrativeCta.style.pointerEvents = "auto";
+                        narrativeCta.style.transform = `translateY(${(1 - ctaProgress) * 20}px) scale(${0.9 + 0.1 * ctaProgress})`;
+                    } else if (narrativeCta) {
+                        narrativeCta.style.opacity = "0";
+                        narrativeCta.style.pointerEvents = "none";
+                        narrativeCta.style.transform = "translateY(20px) scale(0.9)";
+                    }
+                    
+                    ticking = false;
+                });
+                ticking = true;
             }
         });
     }

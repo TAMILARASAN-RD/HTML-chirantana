@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <title>Chirantana Studios</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&display=block"
+    rel="stylesheet">
+
+  <!-- Tailwind CSS v3 CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+            serif: ['Playfair Display', 'ui-serif', 'Georgia', 'serif'],
+          },
+          colors: {
+            brand: {
+              red: '#ED2127',
+              black: '#000000',
+              white: '#F0EFE8',
+              gray: '#111111',
+              light: '#F9F9F9',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #000000;
+      color: #FFFFFF;
+      overflow-x: hidden;
+    }
+
+    /* Custom Red Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: #000000;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #ED2127;
+      border-radius: 5px;
+      border: 2px solid #000000;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #C41C1E;
+    }
+
+    /* Firefox scrollbar */
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: #ED2127 #000000;
+    }
+
+    /* Custom Animations (Inlined from style.css) */
+    @keyframes loading-lens-spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      25% {
+        transform: rotate(20deg);
+      }
+
+      75% {
+        transform: rotate(-20deg);
+      }
+
+      100% {
+        transform: rotate(0deg);
+      }
+    }
+
+    #loading-lens {
+      animation: loading-lens-spin 3s ease-in-out infinite;
+    }
+
+    @keyframes animate-camera-shutter {
+      0% {
+        transform: translateY(0) scale(1) rotate(0deg);
+      }
+
+      15% {
+        transform: translateY(2px) scale(0.98) rotate(-0.5deg);
+      }
+
+      30% {
+        transform: translateY(-3px) scale(0.99) rotate(0.5deg);
+      }
+
+      45% {
+        transform: translateY(3px) scale(1.01) rotate(-0.25deg);
+      }
+
+      60% {
+        transform: translateY(-2px) scale(1) rotate(0.5deg);
+      }
+
+      75% {
+        transform: translateY(1px) scale(1) rotate(-0.5deg);
+      }
+
+      100% {
+        transform: translateY(0) scale(1) rotate(0deg);
+      }
+    }
+
+    .animate-camera-shutter {
+      animation: animate-camera-shutter 0.2s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards;
+    }
+
+    @keyframes animate-flash-fill {
+      0% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0);
+      }
+
+      20% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(2);
+      }
+
+      50% {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(60);
+      }
+
+      100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(60);
+      }
+    }
+
+    .animate-flash-fill {
+      animation: animate-flash-fill 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+    }
+
+    @keyframes fade-in-up {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fade-in-scale {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes fade-in {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes bounce-custom {
+
+      0%,
+      100% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(8px);
+      }
+    }
+
+    .animate-fade-in-up {
+      animation: fade-in-up 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .animate-fade-in-up-delay {
+      opacity: 0;
+      animation: fade-in-scale 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
+    }
+
+    .animate-fade-in-delay-long {
+      opacity: 0;
+      animation: fade-in 1s ease-out 1.5s forwards;
+    }
+
+    .animate-bounce-custom {
+      animation: bounce-custom 2s ease-in-out infinite;
+    }
+  </style>
+
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+</head>
+
+<body class="bg-brand-black min-h-screen font-sans text-brand-white selection:bg-brand-red selection:text-white">
+
+  <!-- Loading Sequence -->
+  <div id="app" class="opacity-0 transition-opacity duration-[1200ms]">
+    <!-- Navbar -->
+    <header id="navbar"
+      class="fixed top-0 left-0 right-0 z-50 transition duration-300 bg-brand-black/90 backdrop-blur-md py-4 shadow-sm shadow-white/5">
+      <div class="max-w-7xl mx-auto px-6 flex items-center gap-12">
+        <div class="flex items-center gap-2 flex-shrink-0">
+          <img src="assets/logo.png" alt="Chirantana Logo" class="h-8 w-auto object-contain" />
+        </div>
+        <nav class="hidden md:flex items-center gap-6">
+          <a href="index.html" class="text-sm font-medium text-white/70 hover:text-white transition-colors">Home</a>
+          <a href="about.html" class="text-sm font-medium text-white/70 hover:text-white transition-colors">About</a>
+          <a href="services.html"
+            class="text-sm font-medium text-white/70 hover:text-white transition-colors">Services</a>
+          <a href="index.html#portfolio"
+            class="text-sm font-medium text-white/70 hover:text-white transition-colors">Portfolio</a>
+          <a href="index.html#clients" class="text-sm font-medium text-white/70 hover:text-white transition-colors">Clients</a>
+          <a href="index.html#team" class="text-sm font-medium text-white/70 hover:text-white transition-colors">Team</a>
+          <a href="index.html#contact" class="text-sm font-medium text-white/70 hover:text-white transition-colors">Contact</a>
+        </nav>
+        <div class="hidden md:flex items-center gap-6 ml-auto">
+          <div class="flex items-center gap-4 text-white/50 border-r border-white/10 pr-6 mr-2">
+            <a href="https://www.instagram.com/chirantanastudio" target="_blank" rel="noopener noreferrer"
+              class="hover:text-white transition-colors"><i data-lucide="instagram" class="w-[18px] h-[18px]"></i></a>
+            <a href="https://youtube.com/@justfactkannada?si=lX_aqMEjgPyd5ARQ" target="_blank" rel="noopener noreferrer"
+              class="hover:text-white transition-colors"><i data-lucide="youtube" class="w-[18px] h-[18px]"></i></a>
+            <a href="https://www.linkedin.com/company/chirantana-studio/" target="_blank" rel="noopener noreferrer"
+              class="hover:text-white transition-colors"><i data-lucide="linkedin" class="w-[18px] h-[18px]"></i></a>
+          </div>
+          <a href="index.html#contact"
+            class="px-5 py-2.5 bg-brand-red text-white text-sm font-medium rounded-sm hover:bg-red-700 transition active:scale-95">Begin
+            the Narrative</a>
+        </div>
+        <!-- Mobile Toggle -->
+        <button id="mobile-menu-btn" class="md:hidden text-white ml-auto">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+
+      <!-- Mobile Menu -->
+      <div id="mobile-menu"
+        class="fixed inset-0 bg-brand-black z-50 flex flex-col px-6 py-8 opacity-0 pointer-events-none transition-opacity duration-300">
+        <div class="flex justify-between items-center mb-12">
+          <img src="assets/logo.png" alt="Chirantana Logo" class="h-8 w-auto object-contain" />
+          <button id="mobile-menu-close" class="text-white">
+            <i data-lucide="x" class="w-6 h-6"></i>
+          </button>
+        </div>
+        <nav class="flex flex-col gap-6 text-2xl font-serif">
+          <a href="index.html" class="mobile-link">Home</a>
+          <a href="about.html" class="mobile-link">About</a>
+          <a href="services.html" class="mobile-link">Services</a>
+          <a href="index.html#portfolio" class="mobile-link">Portfolio</a>
+          <a href="index.html#clients" class="mobile-link">Clients</a>
+          <a href="index.html#team" class="mobile-link">Team</a>
+          <a href="index.html#contact" class="mobile-link">Contact</a>
+        </nav>
+        <div class="mt-auto pt-8 border-t border-white/10">
+          <div class="flex items-center gap-6 text-white/50 mb-8">
+            <a href="https://www.instagram.com/chirantanastudio" target="_blank" rel="noopener noreferrer"
+              class="hover:text-white transition-colors"><i data-lucide="instagram" class="w-6 h-6"></i></a>
+            <a href="https://www.chirantanastudios.com/" target="_blank" rel="noopener noreferrer"
+              class="hover:text-white transition-colors"><i data-lucide="youtube" class="w-6 h-6"></i></a>
+            <a href="https://www.linkedin.com/company/chirantana-studio/" target="_blank" rel="noopener noreferrer"
+              class="hover:text-white transition-colors"><i data-lucide="linkedin" class="w-6 h-6"></i></a>
+          </div>
+          <a href="index.html#contact"
+            class="mobile-link block w-full text-center py-4 bg-brand-red text-white font-medium rounded-sm active:scale-[0.98] transition-transform">Begin
+            the Narrative</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <!-- NarrativeEcosystem -->
+      <section id="services-ecosystem" class="bg-brand-white py-40 px-6">
+        <div class="max-w-7xl mx-auto">
+          <div class="observe-fade-in-left opacity-0 -translate-x-12 transition duration-1000 mb-20">
+            <h2 class="text-4xl md:text-5xl lg:text-5xl font-serif mb-8 leading-tight text-brand-black">Our <span
+                class="text-black italic">Narrative Ecosystem</span></h2>
+            <p class="text-lg text-black/50 max-w-2xl font-light leading-relaxed">Our services are not separate
+              departments. They are interconnected storytelling engines. Each one strengthens the other. Let us walk you
+              through them.</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1">
+            <div
+              class="observe-fade-in-up-stagger opacity-0 translate-y-10 transition duration-800 delay-100 relative aspect-square md:aspect-auto md:h-[400px] bg-black/5 overflow-hidden group p-10 cursor-pointer border-l-[4px] border border-black/5 border-l-transparent hover:border-l-brand-red hover:bg-black/[0.08]">
+              <div class="relative z-10 h-full flex flex-col justify-between">
+                <div>
+                  <span
+                    class="text-4xl font-black mb-4 block transition-colors duration-500 text-brand-red/10 group-hover:text-brand-red/30">01</span>
+                  <h3
+                    class="text-2xl md:text-3xl font-serif mb-6 leading-tight transition-colors duration-500 text-brand-black/90 group-hover:text-brand-red">
+                    Brand Strategy and Narrative Architecture</h3>
+                </div>
+                <div
+                  class="space-y-4 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition duration-300">
+                  <p class="text-black/60 font-light text-sm leading-relaxed">Before visibility, there must be clarity.
+                    Outcome: A brand identity that commands recognition and long term recall.</p>
+                  <button
+                    class="flex items-center gap-2 text-brand-red font-bold uppercase tracking-widest text-xs group/btn">View
+                    Full Service<i data-lucide="arrow-up-right"
+                      class="w-4 h-4 transition-transform group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1"></i></button>
+                </div>
+              </div>
+              <div
+                class="absolute top-0 right-0 w-16 h-16 border-t border-r transition-colors duration-500 border-black/5 group-hover:border-brand-red/30">
+              </div>
+            </div>
+            <div
+              class="observe-fade-in-up-stagger opacity-0 translate-y-10 transition duration-800 delay-200 relative aspect-square md:aspect-auto md:h-[400px] bg-black/5 overflow-hidden group p-10 cursor-pointer border-l-[4px] border border-black/5 border-l-transparent hover:border-l-brand-red hover:bg-black/[0.08]">
+              <div class="relative z-10 h-full flex flex-col justify-between">
+                <div>
+                  <span
+                    class="text-4xl font-black mb-4 block transition-colors duration-500 text-brand-red/10 group-hover:text-brand-red/30">02</span>
+                  <h3
+                    class="text-2xl md:text-3xl font-serif mb-6 leading-tight transition-colors duration-500 text-brand-black/90 group-hover:text-brand-red">
+                    Personal Branding and Authority Design</h3>
+                </div>
+                <div
+                  class="space-y-4 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition duration-300">
+                  <p class="text-black/60 font-light text-sm leading-relaxed">Influence today is personal. Outcome:
+                    Credibility that scales beyond platforms.</p>
+                  <button
+                    class="flex items-center gap-2 text-brand-red font-bold uppercase tracking-widest text-xs group/btn">View
+                    Full Service<i data-lucide="arrow-up-right"
+                      class="w-4 h-4 transition-transform group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1"></i></button>
+                </div>
+              </div>
+              <div
+                class="absolute top-0 right-0 w-16 h-16 border-t border-r transition-colors duration-500 border-black/5 group-hover:border-brand-red/30">
+              </div>
+            </div>
+            <div
+              class="observe-fade-in-up-stagger opacity-0 translate-y-10 transition duration-800 delay-300 relative aspect-square md:aspect-auto md:h-[400px] bg-black/5 overflow-hidden group p-10 cursor-pointer border-l-[4px] border border-black/5 border-l-transparent hover:border-l-brand-red hover:bg-black/[0.08]">
+              <div class="relative z-10 h-full flex flex-col justify-between">
+                <div>
+                  <span
+                    class="text-4xl font-black mb-4 block transition-colors duration-500 text-brand-red/10 group-hover:text-brand-red/30">03</span>
+                  <h3
+                    class="text-2xl md:text-3xl font-serif mb-6 leading-tight transition-colors duration-500 text-brand-black/90 group-hover:text-brand-red">
+                    Social Media Strategy and Content Systems</h3>
+                </div>
+                <div
+                  class="space-y-4 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition duration-300">
+                  <p class="text-black/60 font-light text-sm leading-relaxed">Consistency without strategy is noise.
+                    Outcome: A feed that feels intentional, not improvised.</p>
+                  <button
+                    class="flex items-center gap-2 text-brand-red font-bold uppercase tracking-widest text-xs group/btn">View
+                    Full Service<i data-lucide="arrow-up-right"
+                      class="w-4 h-4 transition-transform group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1"></i></button>
+                </div>
+              </div>
+              <div
+                class="absolute top-0 right-0 w-16 h-16 border-t border-r transition-colors duration-500 border-black/5 group-hover:border-brand-red/30">
+              </div>
+            </div>
+            <div
+              class="observe-fade-in-up-stagger opacity-0 translate-y-10 transition duration-800 delay-100 relative aspect-square md:aspect-auto md:h-[400px] bg-black/5 overflow-hidden group p-10 cursor-pointer border-l-[4px] border border-black/5 border-l-transparent hover:border-l-brand-red hover:bg-black/[0.08]">
+              <div class="relative z-10 h-full flex flex-col justify-between">
+                <div>
+                  <span
+                    class="text-4xl font-black mb-4 block transition-colors duration-500 text-brand-red/10 group-hover:text-brand-red/30">04</span>
+                  <h3
+                    class="text-2xl md:text-3xl font-serif mb-6 leading-tight transition-colors duration-500 text-brand-black/90 group-hover:text-brand-red">
+                    Performance Marketing Creative Intelligence</h3>
+                </div>
+                <div
+                  class="space-y-4 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition duration-300">
+                  <p class="text-black/60 font-light text-sm leading-relaxed">Creativity engineered for ROI. Outcome:
+                    Media spend supported by storytelling precision.</p>
+                  <button
+                    class="flex items-center gap-2 text-brand-red font-bold uppercase tracking-widest text-xs group/btn">View
+                    Full Service<i data-lucide="arrow-up-right"
+                      class="w-4 h-4 transition-transform group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1"></i></button>
+                </div>
+              </div>
+              <div
+                class="absolute top-0 right-0 w-16 h-16 border-t border-r transition-colors duration-500 border-black/5 group-hover:border-brand-red/30">
+              </div>
+            </div>
+            <div
+              class="observe-fade-in-up-stagger opacity-0 translate-y-10 transition duration-800 delay-200 relative aspect-square md:aspect-auto md:h-[400px] bg-black/5 overflow-hidden group p-10 cursor-pointer border-l-[4px] border border-black/5 border-l-transparent hover:border-l-brand-red hover:bg-black/[0.08]">
+              <div class="relative z-10 h-full flex flex-col justify-between">
+                <div>
+                  <span
+                    class="text-4xl font-black mb-4 block transition-colors duration-500 text-brand-red/10 group-hover:text-brand-red/30">05</span>
+                  <h3
+                    class="text-2xl md:text-3xl font-serif mb-6 leading-tight transition-colors duration-500 text-brand-black/90 group-hover:text-brand-red">
+                    Political Campaign Strategy and Public Perception</h3>
+                </div>
+                <div
+                  class="space-y-4 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition duration-300">
+                  <p class="text-black/60 font-light text-sm leading-relaxed">Politics is narrative at scale. Outcome:
+                    Perception shaped with consistency and control.</p>
+                  <button
+                    class="flex items-center gap-2 text-brand-red font-bold uppercase tracking-widest text-xs group/btn">View
+                    Full Service<i data-lucide="arrow-up-right"
+                      class="w-4 h-4 transition-transform group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1"></i></button>
+                </div>
+              </div>
+              <div
+                class="absolute top-0 right-0 w-16 h-16 border-t border-r transition-colors duration-500 border-black/5 group-hover:border-brand-red/30">
+              </div>
+            </div>
+            <div
+              class="observe-fade-in-up-stagger opacity-0 translate-y-10 transition duration-800 delay-300 relative aspect-square md:aspect-auto md:h-[400px] bg-black/5 overflow-hidden group p-10 cursor-pointer border-l-[4px] border border-black/5 border-l-transparent hover:border-l-brand-red hover:bg-black/[0.08]">
+              <div class="relative z-10 h-full flex flex-col justify-between">
+                <div>
+                  <span
+                    class="text-4xl font-black mb-4 block transition-colors duration-500 text-brand-red/10 group-hover:text-brand-red/30">06</span>
+                  <h3
+                    class="text-2xl md:text-3xl font-serif mb-6 leading-tight transition-colors duration-500 text-brand-black/90 group-hover:text-brand-red">
+                    Cinema, TVC and Visual Production</h3>
+                </div>
+                <div
+                  class="space-y-4 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition duration-300">
+                  <p class="text-black/60 font-light text-sm leading-relaxed">Cinematic craft is our backbone. Outcome:
+                    Production creates presence.</p>
+                  <button
+                    class="flex items-center gap-2 text-brand-red font-bold uppercase tracking-widest text-xs group/btn">View
+                    Full Service<i data-lucide="arrow-up-right"
+                      class="w-4 h-4 transition-transform group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1"></i></button>
+                </div>
+              </div>
+              <div
+                class="absolute top-0 right-0 w-16 h-16 border-t border-r transition-colors duration-500 border-black/5 group-hover:border-brand-red/30">
+              </div>
+            </div>
+            <div
+              class="observe-fade-in-up-stagger opacity-0 translate-y-10 transition duration-800 delay-100 relative aspect-square md:aspect-auto md:h-[400px] bg-black/5 overflow-hidden group p-10 cursor-pointer border-l-[4px] border border-black/5 border-l-transparent hover:border-l-brand-red hover:bg-black/[0.08]">
+              <div class="relative z-10 h-full flex flex-col justify-between">
+                <div>
+                  <span
+                    class="text-4xl font-black mb-4 block transition-colors duration-500 text-brand-red/10 group-hover:text-brand-red/30">07</span>
+                  <h3
+                    class="text-2xl md:text-3xl font-serif mb-6 leading-tight transition-colors duration-500 text-brand-black/90 group-hover:text-brand-red">
+                    Post Production and Visual Refinement</h3>
+                </div>
+                <div
+                  class="space-y-4 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition duration-300">
+                  <p class="text-black/60 font-light text-sm leading-relaxed">Editing is emotional calibration. Outcome:
+                    Post production creates impact that lasts.</p>
+                  <button
+                    class="flex items-center gap-2 text-brand-red font-bold uppercase tracking-widest text-xs group/btn">View
+                    Full Service<i data-lucide="arrow-up-right"
+                      class="w-4 h-4 transition-transform group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1"></i></button>
+                </div>
+              </div>
+              <div
+                class="absolute top-0 right-0 w-16 h-16 border-t border-r transition-colors duration-500 border-black/5 group-hover:border-brand-red/30">
+              </div>
+            </div>
+            <div
+              class="observe-fade-in-up-stagger opacity-0 translate-y-10 transition duration-800 delay-200 relative aspect-square md:aspect-auto md:h-[400px] bg-black/5 overflow-hidden group p-10 cursor-pointer border-l-[4px] border border-black/5 border-l-transparent hover:border-l-brand-red hover:bg-black/[0.08]">
+              <div class="relative z-10 h-full flex flex-col justify-between">
+                <div>
+                  <span
+                    class="text-4xl font-black mb-4 block transition-colors duration-500 text-brand-red/10 group-hover:text-brand-red/30">08</span>
+                  <h3
+                    class="text-2xl md:text-3xl font-serif mb-6 leading-tight transition-colors duration-500 text-brand-black/90 group-hover:text-brand-red">
+                    Corporate Events and Experiential Campaigns</h3>
+                </div>
+                <div
+                  class="space-y-4 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition duration-300">
+                  <p class="text-black/60 font-light text-sm leading-relaxed">A corporate event is a live brand
+                    statement. Outcome: Moments that translate into memory.</p>
+                  <button
+                    class="flex items-center gap-2 text-brand-red font-bold uppercase tracking-widest text-xs group/btn">View
+                    Full Service<i data-lucide="arrow-up-right"
+                      class="w-4 h-4 transition-transform group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1"></i></button>
+                </div>
+              </div>
+              <div
+                class="absolute top-0 right-0 w-16 h-16 border-t border-r transition-colors duration-500 border-black/5 group-hover:border-brand-red/30">
+              </div>
+            </div>
+            <div
+              class="observe-fade-in-up-stagger opacity-0 translate-y-10 transition duration-800 delay-300 relative aspect-square md:aspect-auto md:h-[400px] bg-black/5 overflow-hidden group p-10 cursor-pointer border-l-[4px] border border-black/5 border-l-transparent hover:border-l-brand-red hover:bg-black/[0.08]">
+              <div class="relative z-10 h-full flex flex-col justify-between">
+                <div>
+                  <span
+                    class="text-4xl font-black mb-4 block transition-colors duration-500 text-brand-red/10 group-hover:text-brand-red/30">09</span>
+                  <h3
+                    class="text-2xl md:text-3xl font-serif mb-6 leading-tight transition-colors duration-500 text-brand-black/90 group-hover:text-brand-red">
+                    High End Weddings and Luxury Celebrations</h3>
+                </div>
+                <div
+                  class="space-y-4 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition duration-300">
+                  <p class="text-black/60 font-light text-sm leading-relaxed">Luxury demands precision and discretion.
+                    Outcome: Legacy preserved through design.</p>
+                  <button
+                    class="flex items-center gap-2 text-brand-red font-bold uppercase tracking-widest text-xs group/btn">View
+                    Full Service<i data-lucide="arrow-up-right"
+                      class="w-4 h-4 transition-transform group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1"></i></button>
+                </div>
+              </div>
+              <div
+                class="absolute top-0 right-0 w-16 h-16 border-t border-r transition-colors duration-500 border-black/5 group-hover:border-brand-red/30">
+              </div>
+            </div>
+            <div
+              class="observe-fade-in-up-stagger opacity-0 translate-y-10 transition duration-800 delay-100 relative aspect-square md:aspect-auto md:h-[400px] bg-black/5 overflow-hidden group p-10 cursor-pointer border-l-[4px] border border-black/5 border-l-transparent hover:border-l-brand-red hover:bg-black/[0.08]">
+              <div class="relative z-10 h-full flex flex-col justify-between">
+                <div>
+                  <span
+                    class="text-4xl font-black mb-4 block transition-colors duration-500 text-brand-red/10 group-hover:text-brand-red/30">10</span>
+                  <h3
+                    class="text-2xl md:text-3xl font-serif mb-6 leading-tight transition-colors duration-500 text-brand-black/90 group-hover:text-brand-red">
+                    AI Video Creation and Intelligent Visual Systems</h3>
+                </div>
+                <div
+                  class="space-y-4 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition duration-300">
+                  <p class="text-black/60 font-light text-sm leading-relaxed">AI powered video systems built for speed
+                    and adaptability. Outcome: High volume visual content with strategic consistency.</p>
+                  <button
+                    class="flex items-center gap-2 text-brand-red font-bold uppercase tracking-widest text-xs group/btn">View
+                    Full Service<i data-lucide="arrow-up-right"
+                      class="w-4 h-4 transition-transform group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1"></i></button>
+                </div>
+              </div>
+              <div
+                class="absolute top-0 right-0 w-16 h-16 border-t border-r transition-colors duration-500 border-black/5 group-hover:border-brand-red/30">
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-brand-black text-white border-t border-white/10 pt-16 pb-8">
+      <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
+          <div class="md:col-span-2">
+            <div class="flex items-center gap-2 mb-6">
+              <!-- Using dynamic src previously, assumed assets/logo.png here -->
+              <img src="assets/logo.png" alt="Chirantana Logo" class="h-8 w-auto object-contain" />
+            </div>
+            <p class="text-white/50 text-sm max-w-sm leading-relaxed font-sans mt-2">
+              A premium storytelling and creative communications studio. We engineer perception through cinematic craft
+              and strategic rigor.
+            </p>
+          </div>
+          <div>
+            <h4 class="text-white/90 font-medium mb-6 font-sans">Pillars</h4>
+            <ul class="space-y-3 text-sm text-white/50 font-sans">
+              <li><a href="index.html#films" class="hover:text-white transition-colors">Films & Visual Storytelling</a></li>
+              <li><a href="index.html#digital" class="hover:text-white transition-colors">Brand & Digital Amplification</a></li>
+              <li><a href="index.html#public-affairs" class="hover:text-white transition-colors">Public Affairs</a></li>
+              <li><a href="index.html#captures" class="hover:text-white transition-colors">Signature Captures</a></li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="text-white/90 font-medium mb-6 font-sans">Connect</h4>
+            <ul class="space-y-3 text-sm text-white/50 font-sans">
+              <li><a href="#" class="hover:text-white transition-colors">Instagram</a></li>
+              <li><a href="#" class="hover:text-white transition-colors">LinkedIn</a></li>
+              <li><a href="#" class="hover:text-white transition-colors">Vimeo</a></li>
+              <li><a href="index.html#contact" class="hover:text-white transition-colors">Contact Us</a></li>
+            </ul>
+          </div>
+        </div>
+        <div
+          class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/10 text-xs text-white/40 font-sans">
+          <p>© 2024 Chirantana Studios. All rights reserved.</p>
+          <div class="flex gap-6 mt-4 md:mt-0">
+            <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
+            <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+
+
+  </div>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom Script -->
+  <script src="script.js"></script>
+
+  <script>
+    // Initialize icons
+    lucide.createIcons();
+  </script>
+</body>
+
+</html>
