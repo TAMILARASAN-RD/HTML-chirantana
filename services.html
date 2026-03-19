@@ -73,153 +73,13 @@
       scrollbar-color: #ED2127 #000000;
     }
 
-    /* Custom Animations (Inlined from style.css) */
-    @keyframes loading-lens-spin {
-      0% {
-        transform: rotate(0deg);
-      }
-
-      25% {
-        transform: rotate(20deg);
-      }
-
-      75% {
-        transform: rotate(-20deg);
-      }
-
-      100% {
-        transform: rotate(0deg);
-      }
-    }
-
-    #loading-lens {
-      animation: loading-lens-spin 3s ease-in-out infinite;
-    }
-
-    @keyframes animate-camera-shutter {
-      0% {
-        transform: translateY(0) scale(1) rotate(0deg);
-      }
-
-      15% {
-        transform: translateY(2px) scale(0.98) rotate(-0.5deg);
-      }
-
-      30% {
-        transform: translateY(-3px) scale(0.99) rotate(0.5deg);
-      }
-
-      45% {
-        transform: translateY(3px) scale(1.01) rotate(-0.25deg);
-      }
-
-      60% {
-        transform: translateY(-2px) scale(1) rotate(0.5deg);
-      }
-
-      75% {
-        transform: translateY(1px) scale(1) rotate(-0.5deg);
-      }
-
-      100% {
-        transform: translateY(0) scale(1) rotate(0deg);
-      }
-    }
-
-    .animate-camera-shutter {
-      animation: animate-camera-shutter 0.2s cubic-bezier(0.36, 0.07, 0.19, 0.97) forwards;
-    }
-
-    @keyframes animate-flash-fill {
-      0% {
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(0);
-      }
-
-      20% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(2);
-      }
-
-      50% {
-        opacity: 1;
-        transform: translate(-50%, -50%) scale(60);
-      }
-
-      100% {
-        opacity: 0;
-        transform: translate(-50%, -50%) scale(60);
-      }
-    }
-
-    .animate-flash-fill {
-      animation: animate-flash-fill 1.5s cubic-bezier(0.25, 1, 0.5, 1) forwards;
-    }
-
-    @keyframes fade-in-up {
-      from {
-        opacity: 0;
-        transform: translateY(30px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes fade-in-scale {
-      from {
-        opacity: 0;
-        transform: scale(0.9);
-      }
-
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    @keyframes fade-in {
-      from {
-        opacity: 0;
-      }
-
-      to {
-        opacity: 1;
-      }
-    }
-
-    @keyframes bounce-custom {
-
-      0%,
-      100% {
-        transform: translateY(0);
-      }
-
-      50% {
-        transform: translateY(8px);
-      }
-    }
-
-    .animate-fade-in-up {
-      animation: fade-in-up 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    .animate-fade-in-up-delay {
-      opacity: 0;
-      animation: fade-in-scale 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards;
-    }
-
-    .animate-fade-in-delay-long {
-      opacity: 0;
-      animation: fade-in 1s ease-out 1.5s forwards;
-    }
-
     .animate-bounce-custom {
       animation: bounce-custom 2s ease-in-out infinite;
     }
   </style>
+
+  <!-- Global Styles -->
+  <link rel="stylesheet" href="style.css">
 
   <link rel="icon" type="image/png" href="assets/favicon.png" />
 </head>
@@ -232,9 +92,9 @@
     <header id="navbar"
       class="fixed top-0 left-0 right-0 z-50 transition duration-300 bg-brand-black/90 backdrop-blur-md py-4 shadow-sm shadow-white/5">
       <div class="max-w-7xl mx-auto px-6 flex items-center gap-12">
-        <div class="flex items-center gap-2 flex-shrink-0">
+        <a href="index.html" class="flex items-center gap-2 flex-shrink-0 hover:opacity-80 transition-opacity">
           <img src="assets/logo.png" alt="Chirantana Logo" class="h-8 w-auto object-contain" />
-        </div>
+        </a>
         <nav class="hidden md:flex items-center gap-6">
           <a href="index.html" class="text-sm font-medium text-white/70 hover:text-white transition-colors">Home</a>
           <a href="about.html" class="text-sm font-medium text-white/70 hover:text-white transition-colors">About</a>
@@ -325,10 +185,6 @@
                   class="space-y-4 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition duration-300">
                   <p class="text-black/60 font-light text-sm leading-relaxed">Before visibility, there must be clarity.
                     Outcome: A brand identity that commands recognition and long term recall.</p>
-                  <button
-                    class="flex items-center gap-2 text-brand-red font-bold uppercase tracking-widest text-xs group/btn">View
-                    Full Service<i data-lucide="arrow-up-right"
-                      class="w-4 h-4 transition-transform group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1"></i></button>
                 </div>
               </div>
               <div
@@ -349,10 +205,6 @@
                   class="space-y-4 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition duration-300">
                   <p class="text-black/60 font-light text-sm leading-relaxed">Influence today is personal. Outcome:
                     Credibility that scales beyond platforms.</p>
-                  <button
-                    class="flex items-center gap-2 text-brand-red font-bold uppercase tracking-widest text-xs group/btn">View
-                    Full Service<i data-lucide="arrow-up-right"
-                      class="w-4 h-4 transition-transform group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1"></i></button>
                 </div>
               </div>
               <div
@@ -373,10 +225,6 @@
                   class="space-y-4 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition duration-300">
                   <p class="text-black/60 font-light text-sm leading-relaxed">Consistency without strategy is noise.
                     Outcome: A feed that feels intentional, not improvised.</p>
-                  <button
-                    class="flex items-center gap-2 text-brand-red font-bold uppercase tracking-widest text-xs group/btn">View
-                    Full Service<i data-lucide="arrow-up-right"
-                      class="w-4 h-4 transition-transform group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1"></i></button>
                 </div>
               </div>
               <div
@@ -397,10 +245,6 @@
                   class="space-y-4 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition duration-300">
                   <p class="text-black/60 font-light text-sm leading-relaxed">Creativity engineered for ROI. Outcome:
                     Media spend supported by storytelling precision.</p>
-                  <button
-                    class="flex items-center gap-2 text-brand-red font-bold uppercase tracking-widest text-xs group/btn">View
-                    Full Service<i data-lucide="arrow-up-right"
-                      class="w-4 h-4 transition-transform group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1"></i></button>
                 </div>
               </div>
               <div
@@ -421,10 +265,6 @@
                   class="space-y-4 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition duration-300">
                   <p class="text-black/60 font-light text-sm leading-relaxed">Politics is narrative at scale. Outcome:
                     Perception shaped with consistency and control.</p>
-                  <button
-                    class="flex items-center gap-2 text-brand-red font-bold uppercase tracking-widest text-xs group/btn">View
-                    Full Service<i data-lucide="arrow-up-right"
-                      class="w-4 h-4 transition-transform group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1"></i></button>
                 </div>
               </div>
               <div
@@ -445,10 +285,6 @@
                   class="space-y-4 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition duration-300">
                   <p class="text-black/60 font-light text-sm leading-relaxed">Cinematic craft is our backbone. Outcome:
                     Production creates presence.</p>
-                  <button
-                    class="flex items-center gap-2 text-brand-red font-bold uppercase tracking-widest text-xs group/btn">View
-                    Full Service<i data-lucide="arrow-up-right"
-                      class="w-4 h-4 transition-transform group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1"></i></button>
                 </div>
               </div>
               <div
@@ -469,10 +305,6 @@
                   class="space-y-4 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition duration-300">
                   <p class="text-black/60 font-light text-sm leading-relaxed">Editing is emotional calibration. Outcome:
                     Post production creates impact that lasts.</p>
-                  <button
-                    class="flex items-center gap-2 text-brand-red font-bold uppercase tracking-widest text-xs group/btn">View
-                    Full Service<i data-lucide="arrow-up-right"
-                      class="w-4 h-4 transition-transform group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1"></i></button>
                 </div>
               </div>
               <div
@@ -493,10 +325,6 @@
                   class="space-y-4 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition duration-300">
                   <p class="text-black/60 font-light text-sm leading-relaxed">A corporate event is a live brand
                     statement. Outcome: Moments that translate into memory.</p>
-                  <button
-                    class="flex items-center gap-2 text-brand-red font-bold uppercase tracking-widest text-xs group/btn">View
-                    Full Service<i data-lucide="arrow-up-right"
-                      class="w-4 h-4 transition-transform group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1"></i></button>
                 </div>
               </div>
               <div
@@ -517,10 +345,6 @@
                   class="space-y-4 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition duration-300">
                   <p class="text-black/60 font-light text-sm leading-relaxed">Luxury demands precision and discretion.
                     Outcome: Legacy preserved through design.</p>
-                  <button
-                    class="flex items-center gap-2 text-brand-red font-bold uppercase tracking-widest text-xs group/btn">View
-                    Full Service<i data-lucide="arrow-up-right"
-                      class="w-4 h-4 transition-transform group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1"></i></button>
                 </div>
               </div>
               <div
@@ -541,10 +365,6 @@
                   class="space-y-4 opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition duration-300">
                   <p class="text-black/60 font-light text-sm leading-relaxed">AI powered video systems built for speed
                     and adaptability. Outcome: High volume visual content with strategic consistency.</p>
-                  <button
-                    class="flex items-center gap-2 text-brand-red font-bold uppercase tracking-widest text-xs group/btn">View
-                    Full Service<i data-lucide="arrow-up-right"
-                      class="w-4 h-4 transition-transform group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1"></i></button>
                 </div>
               </div>
               <div
@@ -561,10 +381,10 @@
       <div class="max-w-7xl mx-auto px-6">
         <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-16">
           <div class="md:col-span-2">
-            <div class="flex items-center gap-2 mb-6">
+            <a href="index.html" class="flex items-center gap-2 mb-6 hover:opacity-80 transition-opacity inline-block">
               <!-- Using dynamic src previously, assumed assets/logo.png here -->
               <img src="assets/logo.png" alt="Chirantana Logo" class="h-8 w-auto object-contain" />
-            </div>
+            </a>
             <p class="text-white/50 text-sm max-w-sm leading-relaxed font-sans mt-2">
               A premium storytelling and creative communications studio. We engineer perception through cinematic craft
               and strategic rigor.
@@ -591,7 +411,7 @@
         </div>
         <div
           class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/10 text-xs text-white/40 font-sans">
-          <p>© 2024 Chirantana Studios. All rights reserved.</p>
+          <p>© 2026 Chirantana Studios. All rights reserved.</p>
           <div class="flex gap-6 mt-4 md:mt-0">
             <a href="#" class="hover:text-white transition-colors">Privacy Policy</a>
             <a href="#" class="hover:text-white transition-colors">Terms of Service</a>
@@ -614,6 +434,9 @@
     // Initialize icons
     lucide.createIcons();
   </script>
+
+  <!-- Custom Cursor Element -->
+  <div id="custom-cursor"></div>
 </body>
 
 </html>
