@@ -251,6 +251,46 @@
       animation: bounce-custom 2s ease-in-out infinite;
     }
 
+    /* Testimonial Vertical Reveal */
+    .testimonial-reveal-card {
+      transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .testimonial-reveal-card.active-card {
+      opacity: 1 !important;
+      pointer-events: auto !important;
+      transform: translateY(0) !important;
+    }
+
+    .testimonial-reveal-card.prev-card {
+      opacity: 0 !important;
+      pointer-events: none !important;
+      transform: translateY(-20px) !important;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar {
+      width: 4px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: rgba(237, 33, 39, 0.2);
+      border-radius: 10px;
+    }
+
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+      background: rgba(237, 33, 39, 0.4);
+    }
+
+    .testimonial-reveal-card [data-lucide^="star"] {
+      fill: #ED2127;
+      /* brand-red */
+      stroke: #ED2127;
+    }
+
     /* Stagger Delays */
     .stagger-1 {
       animation-delay: 0.2s !important;
@@ -330,6 +370,49 @@
 
     .animate-marquee-reverse:hover {
       animation-play-state: paused;
+    }
+
+    /* Film Reel Variables & Classes */
+    :root {
+      --reel-height: 140px;
+      /* Background reel image is 937x200. It has 4 frames. 937 / 4 = 234.25. Ratio = 234.25 / 200 = 1.17125 */
+      --reel-frame-width: calc(var(--reel-height) * 1.17125);
+    }
+
+    @media (min-width: 768px) {
+      :root {
+        --reel-height: 180px;
+      }
+    }
+
+    .film-reel-track {
+      background-image: url('assets/reel.png');
+      background-repeat: repeat-x;
+      background-size: auto 100%;
+      height: var(--reel-height);
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+
+    .film-reel-item {
+      flex: 0 0 var(--reel-frame-width);
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .film-reel-item img {
+      max-height: 75%;
+      max-width: 85%;
+      object-fit: contain;
+      transition: transform 0.3s;
+    }
+
+    .film-reel-item img:hover {
+      transform: scale(1.1);
     }
 
     /* Red trailing circle follower */
@@ -421,7 +504,7 @@
           <a href="about.html" class="text-sm font-medium text-white/70 hover:text-white transition-colors">About</a>
           <a href="services.html"
             class="text-sm font-medium text-white/70 hover:text-white transition-colors">Services</a>
-          <a href="index.html#portfolio"
+          <a href="portfolio.html"
             class="text-sm font-medium text-white/70 hover:text-white transition-colors">Portfolio</a>
           <a href="index.html#clients"
             class="text-sm font-medium text-white/70 hover:text-white transition-colors">Clients</a>
@@ -436,8 +519,16 @@
               class="hover:text-white transition-colors"><i data-lucide="instagram" class="w-[18px] h-[18px]"></i></a>
             <a href="https://youtube.com/@justfactkannada?si=lX_aqMEjgPyd5ARQ" target="_blank" rel="noopener noreferrer"
               class="hover:text-white transition-colors"><i data-lucide="youtube" class="w-[18px] h-[18px]"></i></a>
-            <a href="https://www.linkedin.com/company/chirantana-studio/" target="_blank" rel="noopener noreferrer"
-              class="hover:text-white transition-colors"><i data-lucide="linkedin" class="w-[18px] h-[18px]"></i></a>
+            <a href="https://wa.me/919663351768?text=Hi,%20Chirantana" target="_blank" rel="noopener noreferrer"
+              class="hover:text-white transition-colors"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="w-[18px] h-[18px]">
+                <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" />
+                <path
+                  d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" />
+              </svg></a>
+            <a href="https://www.facebook.com/share/1A1cbGfsty/" target="_blank" rel="noopener noreferrer"
+              class="hover:text-white transition-colors"><i data-lucide="facebook" class="w-[18px] h-[18px]"></i></a>
           </div>
           <a href="#contact"
             class="px-5 py-2.5 bg-brand-red text-white text-sm font-medium rounded-sm hover:bg-red-700 transition active:scale-95">Begin
@@ -462,7 +553,7 @@
           <a href="index.html" class="mobile-link">Home</a>
           <a href="about.html" class="mobile-link">About</a>
           <a href="services.html" class="mobile-link">Services</a>
-          <a href="index.html#portfolio" class="mobile-link">Portfolio</a>
+          <a href="portfolio.html" class="mobile-link">Portfolio</a>
           <a href="index.html#clients" class="mobile-link">Clients</a>
           <a href="index.html#team" class="mobile-link">Team</a>
           <a href="index.html#contact" class="mobile-link">Contact</a>
@@ -473,8 +564,16 @@
               class="hover:text-white transition-colors"><i data-lucide="instagram" class="w-6 h-6"></i></a>
             <a href="https://www.chirantanastudios.com/" target="_blank" rel="noopener noreferrer"
               class="hover:text-white transition-colors"><i data-lucide="youtube" class="w-6 h-6"></i></a>
-            <a href="https://www.linkedin.com/company/chirantana-studio/" target="_blank" rel="noopener noreferrer"
-              class="hover:text-white transition-colors"><i data-lucide="linkedin" class="w-6 h-6"></i></a>
+            <a href="https://wa.me/919663351768?text=Hi,%20Chirantana" target="_blank" rel="noopener noreferrer"
+              class="hover:text-white transition-colors"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="w-6 h-6">
+                <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" />
+                <path
+                  d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" />
+              </svg></a>
+            <a href="https://www.facebook.com/share/1A1cbGfsty/" target="_blank" rel="noopener noreferrer"
+              class="hover:text-white transition-colors"><i data-lucide="facebook" class="w-6 h-6"></i></a>
           </div>
           <a href="#contact"
             class="mobile-link block w-full text-center py-4 bg-brand-red text-white font-medium rounded-sm active:scale-[0.98] transition-transform">Begin
@@ -514,7 +613,7 @@
               incomplete."</p>
           </div>
           <div class="flex flex-col sm:flex-row gap-6 animate-fade-in-up stagger-5">
-            <a href="#portfolio"
+            <a href="portfolio.html"
               class="px-10 py-4 bg-white text-brand-black font-semibold rounded-sm hover:bg-gray-200 transition active:scale-95 shadow-xl shadow-white/5">Explore
               Our Work</a>
             <a href="#contact"
@@ -722,282 +821,422 @@
           <div
             class="relative w-full overflow-hidden py-12 px-4 observe-fade-in-up opacity-0 translate-y-6 transition duration-1000 stagger-4">
             <!-- Row 1: Moving Right (Reverse) -->
-            <div class="animate-marquee-reverse gap-12 md:gap-20 items-center mb-8">
+            <div class="animate-marquee-reverse film-reel-track mb-8">
               <!-- Set 1 -->
-              <div class="flex gap-12 md:gap-20 items-center h-16 md:h-20">
-                <img src="assets/clients/ACCOUNTANT logo.png" alt="Accountant Logo"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/AKSHARA INTERNATIONAL.png" alt="Akshara International"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/ALTIUS.png" alt="Altius"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/ALTIUS0.png" alt="Altius"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/AR_EVENTS-removebg-preview.png" alt="AR Events"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/BDA.png" alt="BDA"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/BLDE-Deemed-to-be-University.png.bv.webp" alt="BLDE University"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/BMJH-Group-Logo.png" alt="BMJH Group"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/CHITRAPATHA.png" alt="Chitrapatha"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/Color logo.png" alt="Color Logo"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/EUROPE STUDY CENTRE.png" alt="Europe Study Centre"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/FIDELITUS-removebg-preview.png" alt="Fidelitus"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/FLYCARE-LOGO1.png" alt="Flycare"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/GLOBAL_CULTURE.png" alt="Global Culture"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/Gnyanasudha.png" alt="Gnyanasudha"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/HOK-removebg-preview.png" alt="HOK"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/IISc-removebg-preview.png" alt="IISc"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/IISc__1_-removebg-preview.png" alt="IISc"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/ILYF.png" alt="ILYF"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/IOC_Logo.svg.png" alt="IOC Logo"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/Ina_FILMS-removebg-preview.png" alt="Ina Films"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/Indian_Oil_Corporation-Logo..png" alt="Indian Oil Corporation"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/JNANAMRUTHA.png" alt="Jnanamrutha"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/KSBA.png" alt="KSBA"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/KUNDAPURA KANNADA.png" alt="Kundapura Kannada"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/LOKMUDRA.png" alt="Lokmudra"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/MEGA MILES.png" alt="Mega Miles"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/MOGAVEERA_SANGHA.png" alt="Mogaveera Sangha"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/MOVERS INDIA.png" alt="Movers India"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/MOVERS_INDIA_PVT_LMT-removebg-preview.png" alt="Movers India"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/MYRADA-removebg-preview.png" alt="Myrada"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/NIMIT.png" alt="Nimit"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/NITTE_MEENAKSHI_IT-removebg-preview.png" alt="Nitte Meenakshi IT"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
+              <div class="flex items-center h-full">
+                <div class="film-reel-item">
+                  <img src="assets/clients/ACCOUNTANT logo.png" alt="Accountant Logo" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/AKSHARA INTERNATIONAL.png" alt="Akshara International" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/ALTIUS.png" alt="Altius" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/ALTIUS0.png" alt="Altius" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/AR_EVENTS-removebg-preview.png" alt="AR Events" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/BDA.png" alt="BDA" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/BLDE-Deemed-to-be-University.png.bv.webp" alt="BLDE University"
+                    loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/BMJH-Group-Logo.png" alt="BMJH Group" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/CHITRAPATHA.png" alt="Chitrapatha" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/Color logo.png" alt="Color Logo" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/EUROPE STUDY CENTRE.png" alt="Europe Study Centre" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/FIDELITUS-removebg-preview.png" alt="Fidelitus" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/FLYCARE-LOGO1.png" alt="Flycare" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/GLOBAL_CULTURE.png" alt="Global Culture" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/Gnyanasudha.png" alt="Gnyanasudha" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/HOK-removebg-preview.png" alt="HOK" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/IISc-removebg-preview.png" alt="IISc" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/IISc__1_-removebg-preview.png" alt="IISc" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/ILYF.png" alt="ILYF" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/IOC_Logo.svg.png" alt="IOC Logo" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/Ina_FILMS-removebg-preview.png" alt="Ina Films" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/Indian_Oil_Corporation-Logo..png" alt="Indian Oil Corporation"
+                    loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/JNANAMRUTHA.png" alt="Jnanamrutha" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/KSBA.png" alt="KSBA" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/KUNDAPURA KANNADA.png" alt="Kundapura Kannada" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/LOKMUDRA.png" alt="Lokmudra" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/MEGA MILES.png" alt="Mega Miles" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/MOGAVEERA_SANGHA.png" alt="Mogaveera Sangha" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/MOVERS INDIA.png" alt="Movers India" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/MOVERS_INDIA_PVT_LMT-removebg-preview.png" alt="Movers India"
+                    loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/MYRADA-removebg-preview.png" alt="Myrada" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/NIMIT.png" alt="Nimit" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/NITTE_MEENAKSHI_IT-removebg-preview.png" alt="Nitte Meenakshi IT"
+                    loading="lazy" />
+                </div>
               </div>
               <!-- Set 2 for loop -->
-              <div class="flex gap-12 md:gap-20 items-center h-16 md:h-20">
-                <img src="assets/clients/ACCOUNTANT logo.png" alt="Accountant Logo"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/AKSHARA INTERNATIONAL.png" alt="Akshara International"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/ALTIUS.png" alt="Altius"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/ALTIUS0.png" alt="Altius"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/AR_EVENTS-removebg-preview.png" alt="AR Events"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/BDA.png" alt="BDA"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/BLDE-Deemed-to-be-University.png.bv.webp" alt="BLDE University"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/BMJH-Group-Logo.png" alt="BMJH Group"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/CHITRAPATHA.png" alt="Chitrapatha"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/Color logo.png" alt="Color Logo"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/EUROPE STUDY CENTRE.png" alt="Europe Study Centre"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/FIDELITUS-removebg-preview.png" alt="Fidelitus"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/FLYCARE-LOGO1.png" alt="Flycare"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/GLOBAL_CULTURE.png" alt="Global Culture"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/Gnyanasudha.png" alt="Gnyanasudha"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/HOK-removebg-preview.png" alt="HOK"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/IISc-removebg-preview.png" alt="IISc"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/IISc__1_-removebg-preview.png" alt="IISc"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/ILYF.png" alt="ILYF"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/IOC_Logo.svg.png" alt="IOC Logo"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/Ina_FILMS-removebg-preview.png" alt="Ina Films"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/Indian_Oil_Corporation-Logo..png" alt="Indian Oil Corporation"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/JNANAMRUTHA.png" alt="Jnanamrutha"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/KSBA.png" alt="KSBA"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/KUNDAPURA KANNADA.png" alt="Kundapura Kannada"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/LOKMUDRA.png" alt="Lokmudra"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/MEGA MILES.png" alt="Mega Miles"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/MOGAVEERA_SANGHA.png" alt="Mogaveera Sangha"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/MOVERS INDIA.png" alt="Movers India"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/MOVERS_INDIA_PVT_LMT-removebg-preview.png" alt="Movers India"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/MYRADA-removebg-preview.png" alt="Myrada"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/NIMIT.png" alt="Nimit"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/NITTE_MEENAKSHI_IT-removebg-preview.png" alt="Nitte Meenakshi IT"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
+              <div class="flex items-center h-full">
+                <div class="film-reel-item">
+                  <img src="assets/clients/ACCOUNTANT logo.png" alt="Accountant Logo" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/AKSHARA INTERNATIONAL.png" alt="Akshara International" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/ALTIUS.png" alt="Altius" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/ALTIUS0.png" alt="Altius" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/AR_EVENTS-removebg-preview.png" alt="AR Events" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/BDA.png" alt="BDA" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/BLDE-Deemed-to-be-University.png.bv.webp" alt="BLDE University"
+                    loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/BMJH-Group-Logo.png" alt="BMJH Group" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/CHITRAPATHA.png" alt="Chitrapatha" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/Color logo.png" alt="Color Logo" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/EUROPE STUDY CENTRE.png" alt="Europe Study Centre" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/FIDELITUS-removebg-preview.png" alt="Fidelitus" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/FLYCARE-LOGO1.png" alt="Flycare" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/GLOBAL_CULTURE.png" alt="Global Culture" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/Gnyanasudha.png" alt="Gnyanasudha" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/HOK-removebg-preview.png" alt="HOK" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/IISc-removebg-preview.png" alt="IISc" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/IISc__1_-removebg-preview.png" alt="IISc" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/ILYF.png" alt="ILYF" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/IOC_Logo.svg.png" alt="IOC Logo" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/Ina_FILMS-removebg-preview.png" alt="Ina Films" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/Indian_Oil_Corporation-Logo..png" alt="Indian Oil Corporation"
+                    loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/JNANAMRUTHA.png" alt="Jnanamrutha" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/KSBA.png" alt="KSBA" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/KUNDAPURA KANNADA.png" alt="Kundapura Kannada" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/LOKMUDRA.png" alt="Lokmudra" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/MEGA MILES.png" alt="Mega Miles" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/MOGAVEERA_SANGHA.png" alt="Mogaveera Sangha" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/MOVERS INDIA.png" alt="Movers India" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/MOVERS_INDIA_PVT_LMT-removebg-preview.png" alt="Movers India"
+                    loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/MYRADA-removebg-preview.png" alt="Myrada" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/NIMIT.png" alt="Nimit" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/NITTE_MEENAKSHI_IT-removebg-preview.png" alt="Nitte Meenakshi IT"
+                    loading="lazy" />
+                </div>
               </div>
             </div>
 
             <!-- Row 2: Moving Left -->
-            <div class="animate-marquee gap-12 md:gap-20 items-center">
+            <div class="animate-marquee film-reel-track">
               <!-- Set 1 -->
-              <div class="flex gap-12 md:gap-20 items-center h-16 md:h-20">
-                <img src="assets/clients/ORNATE_ECO_TECH.png" alt="Ornate Eco Tech"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/PARAMAPADA-removebg-preview.png" alt="Paramapada"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/PARAMAPADA.png" alt="Paramapada"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/PARIVARTHAN GURUKUL.png" alt="Parivarthan Gurukul"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/PLANOTECH EVENTS.png" alt="Planotech Events"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/POSIFLEX-removebg-preview.png" alt="Posiflex"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/PSG-removebg-preview.png" alt="PSG"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/PURPLEWOOD INTERIORS logo.png" alt="Purplewood Interiors"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/RAJATHAGIRI.png" alt="Rajathagiri"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/RISHI_FILMS_01-removebg-preview.png" alt="Rishi Films"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/SECOND GEAR.png" alt="Second Gear"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/SHESHADRIPURAM.png" alt="Sheshadripuram"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/SIDDAGANGA_IT.png" alt="Siddaganga IT"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/SINDHOORA.png" alt="Sindhoora"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/SINDHURA_GARDENIA.png" alt="Sindhura Gardenia"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/SIT-logo.png" alt="SIT Logo"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/SP.png" alt="SP"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/SPARSHA.png" alt="Sparsha"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/THALAMPALLY_GROUP-removebg-preview.png" alt="Thalampally Group"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/THE_FILE_02-removebg-preview.png" alt="The File 02"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/THE_TIME_CREATIONS.png" alt="The Time Creations"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/UNIQUE TRUTH.png" alt="Unique Truth"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/VASAVI.png" alt="Vasavi"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/eSHIPZ logo.png" alt="eShipz Logo"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/epic-creative-logo.png" alt="Epic Creative"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/factori-logo.png" alt="Factori"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/music.png" alt="Music"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/neem craft.png" alt="Neem Craft"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/organic express.png" alt="Organic Express"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/posiflex-logo.png" alt="Posiflex"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/unnamed.png" alt="Unnamed"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/vishwadarshana_logo.png" alt="Vishwadarshana Logo"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
+              <div class="flex items-center h-full">
+                <div class="film-reel-item">
+                  <img src="assets/clients/ORNATE_ECO_TECH.png" alt="Ornate Eco Tech" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/nexilra.jpg" alt="Nexilra" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/PARAMAPADA.png" alt="Paramapada" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/PARIVARTHAN GURUKUL.png" alt="Parivarthan Gurukul" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/PLANOTECH EVENTS.png" alt="Planotech Events" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/POSIFLEX-removebg-preview.png" alt="Posiflex" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/PSG-removebg-preview.png" alt="PSG" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/PURPLEWOOD INTERIORS logo.png" alt="Purplewood Interiors" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/RAJATHAGIRI.png" alt="Rajathagiri" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/RISHI_FILMS_01-removebg-preview.png" alt="Rishi Films" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/SECOND GEAR.png" alt="Second Gear" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/SHESHADRIPURAM.png" alt="Sheshadripuram" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/SIDDAGANGA_IT.png" alt="Siddaganga IT" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/SINDHOORA.png" alt="Sindhoora" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/SINDHURA_GARDENIA.png" alt="Sindhura Gardenia" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/SIT-logo.png" alt="SIT Logo" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/SP.png" alt="SP" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/SPARSHA.png" alt="Sparsha" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/THALAMPALLY_GROUP-removebg-preview.png" alt="Thalampally Group"
+                    loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/THE_FILE_02-removebg-preview.png" alt="The File 02" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/THE_TIME_CREATIONS.png" alt="The Time Creations" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/UNIQUE TRUTH.png" alt="Unique Truth" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/VASAVI.png" alt="Vasavi" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/eSHIPZ logo.png" alt="eShipz Logo" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/epic-creative-logo.png" alt="Epic Creative" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/factori-logo.png" alt="Factori" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/music.png" alt="Music" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/neem craft.png" alt="Neem Craft" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/organic express.png" alt="Organic Express" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/posiflex-logo.png" alt="Posiflex" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/unnamed.png" alt="Unnamed" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/vishwadarshana_logo.png" alt="Vishwadarshana Logo" loading="lazy" />
+                </div>
               </div>
               <!-- Set 2 for loop -->
-              <div class="flex gap-12 md:gap-20 items-center h-16 md:h-20">
-                <img src="assets/clients/ORNATE_ECO_TECH.png" alt="Ornate Eco Tech"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/PARAMAPADA-removebg-preview.png" alt="Paramapada"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/PARAMAPADA.png" alt="Paramapada"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/PARIVARTHAN GURUKUL.png" alt="Parivarthan Gurukul"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/PLANOTECH EVENTS.png" alt="Planotech Events"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/POSIFLEX-removebg-preview.png" alt="Posiflex"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/PSG-removebg-preview.png" alt="PSG"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/PURPLEWOOD INTERIORS logo.png" alt="Purplewood Interiors"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/RAJATHAGIRI.png" alt="Rajathagiri"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/RISHI_FILMS_01-removebg-preview.png" alt="Rishi Films"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/SECOND GEAR.png" alt="Second Gear"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/SHESHADRIPURAM.png" alt="Sheshadripuram"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/SIDDAGANGA_IT.png" alt="Siddaganga IT"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/SINDHOORA.png" alt="Sindhoora"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/SINDHURA_GARDENIA.png" alt="Sindhura Gardenia"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/SIT-logo.png" alt="SIT Logo"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/SP.png" alt="SP"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/SPARSHA.png" alt="Sparsha"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/THALAMPALLY_GROUP-removebg-preview.png" alt="Thalampally Group"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/THE_FILE_02-removebg-preview.png" alt="The File 02"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/THE_TIME_CREATIONS.png" alt="The Time Creations"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/UNIQUE TRUTH.png" alt="Unique Truth"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/VASAVI.png" alt="Vasavi"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/eSHIPZ logo.png" alt="eShipz Logo"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/epic-creative-logo.png" alt="Epic Creative"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/factori-logo.png" alt="Factori"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/music.png" alt="Music"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/neem craft.png" alt="Neem Craft"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/organic express.png" alt="Organic Express"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/posiflex-logo.png" alt="Posiflex"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/unnamed.png" alt="Unnamed"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
-                <img src="assets/clients/vishwadarshana_logo.png" alt="Vishwadarshana Logo"
-                  class="h-full w-24 md:w-32 object-contain hover:scale-110 transition-transform duration-300" />
+              <div class="flex items-center h-full">
+                <div class="film-reel-item">
+                  <img src="assets/clients/ORNATE_ECO_TECH.png" alt="Ornate Eco Tech" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/nexilra.jpg" alt="Nexilra" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/PARAMAPADA.png" alt="Paramapada" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/PARIVARTHAN GURUKUL.png" alt="Parivarthan Gurukul" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/PLANOTECH EVENTS.png" alt="Planotech Events" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/POSIFLEX-removebg-preview.png" alt="Posiflex" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/PSG-removebg-preview.png" alt="PSG" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/PURPLEWOOD INTERIORS logo.png" alt="Purplewood Interiors" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/RAJATHAGIRI.png" alt="Rajathagiri" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/RISHI_FILMS_01-removebg-preview.png" alt="Rishi Films" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/SECOND GEAR.png" alt="Second Gear" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/SHESHADRIPURAM.png" alt="Sheshadripuram" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/SIDDAGANGA_IT.png" alt="Siddaganga IT" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/SINDHOORA.png" alt="Sindhoora" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/SINDHURA_GARDENIA.png" alt="Sindhura Gardenia" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/SIT-logo.png" alt="SIT Logo" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/SP.png" alt="SP" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/SPARSHA.png" alt="Sparsha" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/THALAMPALLY_GROUP-removebg-preview.png" alt="Thalampally Group"
+                    loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/THE_FILE_02-removebg-preview.png" alt="The File 02" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/THE_TIME_CREATIONS.png" alt="The Time Creations" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/UNIQUE TRUTH.png" alt="Unique Truth" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/VASAVI.png" alt="Vasavi" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/eSHIPZ logo.png" alt="eShipz Logo" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/epic-creative-logo.png" alt="Epic Creative" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/factori-logo.png" alt="Factori" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/music.png" alt="Music" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/neem craft.png" alt="Neem Craft" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/organic express.png" alt="Organic Express" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/posiflex-logo.png" alt="Posiflex" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/unnamed.png" alt="Unnamed" loading="lazy" />
+                </div>
+                <div class="film-reel-item">
+                  <img src="assets/clients/vishwadarshana_logo.png" alt="Vishwadarshana Logo" loading="lazy" />
+                </div>
               </div>
             </div>
 
@@ -1011,6 +1250,255 @@
             partnerships are long term. Because narrative building is not a one-campaign activity."</p>
         </div>
       </section>
+
+      <!-- Testimonials -->
+      <section id="testimonial-section" class="py-32 bg-brand-light text-brand-black overflow-hidden relative">
+        <div class="max-w-7xl mx-auto px-6">
+          <div id="testimonial-header" class="text-center mb-20 observe-fade-in-up opacity-0 translate-y-8 transition duration-800">
+            <span class="text-brand-red font-semibold tracking-wider text-sm uppercase mb-4 block">Client
+              Perspectives</span>
+            <h2 class="text-4xl md:text-5xl font-serif text-brand-black">Voices of Trust</h2>
+          </div>
+
+          <div
+            class="grid grid-cols-1 lg:grid-cols-[120px_1fr] gap-0 items-start relative min-h-[650px] md:min-h-[600px]">
+            <!-- Left Stripe / Refined Vertical Bar -->
+            <div
+              class="hidden lg:flex flex-col items-center sticky top-40 h-[450px] z-10 testimonials-stripe-container">
+              <!-- Minimalist Red Stripe -->
+              <div class="w-5 bg-brand-red h-full relative rounded-full overflow-visible">
+                <!-- Moving Button Indicator on the Stripe -->
+                <div id="testimonial-drag-handle"
+                  class="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-14 rounded-full border-[4px] border-white bg-white shadow-xl flex items-center justify-center transition-all duration-1000 ease-in-out z-30 cursor-grab active:cursor-grabbing hover:scale-105 active:scale-95 select-none touch-none"
+                  style="top: 0%">
+                  <!-- Favicon (no default dragging) -->
+                  <img src="assets/favicon.png" alt="Indicator"
+                    class="w-8 h-8 object-contain pointer-events-none select-none" draggable="true">
+                </div>
+
+                <!-- Subtle Dot Indicators on the stripe -->
+                <div class="absolute inset-0 flex flex-col justify-between py-4 pointer-events-none">
+                  <!-- Hitbox wrapper for each dot to increase clickable area -->
+                  <div class="dot-indicator w-full h-10 flex items-center justify-center cursor-pointer pointer-events-auto group" data-index="0">
+                    <div class="w-1.5 h-1.5 bg-white/40 rounded-full group-hover:scale-150 group-hover:bg-white transition-all transform"></div>
+                  </div>
+                  <div class="dot-indicator w-full h-10 flex items-center justify-center cursor-pointer pointer-events-auto group" data-index="1">
+                    <div class="w-1.5 h-1.5 bg-white/40 rounded-full group-hover:scale-150 group-hover:bg-white transition-all transform"></div>
+                  </div>
+                  <div class="dot-indicator w-full h-10 flex items-center justify-center cursor-pointer pointer-events-auto group" data-index="2">
+                    <div class="w-1.5 h-1.5 bg-white/40 rounded-full group-hover:scale-150 group-hover:bg-white transition-all transform"></div>
+                  </div>
+                  <div class="dot-indicator w-full h-10 flex items-center justify-center cursor-pointer pointer-events-auto group" data-index="3">
+                    <div class="w-1.5 h-1.5 bg-white/40 rounded-full group-hover:scale-150 group-hover:bg-white transition-all transform"></div>
+                  </div>
+                  <div class="dot-indicator w-full h-10 flex items-center justify-center cursor-pointer pointer-events-auto group" data-index="4">
+                    <div class="w-1.5 h-1.5 bg-white/40 rounded-full group-hover:scale-150 group-hover:bg-white transition-all transform"></div>
+                  </div>
+                  <div class="dot-indicator w-full h-10 flex items-center justify-center cursor-pointer pointer-events-auto group" data-index="5">
+                    <div class="w-1.5 h-1.5 bg-white/40 rounded-full group-hover:scale-150 group-hover:bg-white transition-all transform"></div>
+                  </div>
+                  <div class="dot-indicator w-full h-10 flex items-center justify-center cursor-pointer pointer-events-auto group" data-index="6">
+                    <div class="w-1.5 h-1.5 bg-white/40 rounded-full group-hover:scale-150 group-hover:bg-white transition-all transform"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Testimonial Content Reveal Container -->
+            <div id="testimonial-reveal-container" class="relative w-full h-full lg:pl-10">
+
+              <!-- Card 1: Mahesh K -->
+              <div
+                class="testimonial-reveal-card absolute inset-0 opacity-0 pointer-events-none transition-all duration-1000 transform translate-y-8 active-card"
+                data-index="0">
+                <div class="bg-white/40 backdrop-blur-sm p-10 md:p-16 rounded-sm max-w-5xl">
+                  <div class="flex-1">
+                    <div class="flex gap-1 text-brand-red mb-8">
+                      <i data-lucide="star" class="w-6 h-6 fill-current"></i>
+                      <i data-lucide="star" class="w-6 h-6 fill-current"></i>
+                      <i data-lucide="star" class="w-6 h-6 fill-current"></i>
+                      <i data-lucide="star" class="w-6 h-6 fill-current"></i>
+                      <i data-lucide="star" class="w-6 h-6 fill-current"></i>
+                    </div>
+                    <p class="text-2xl md:text-4xl font-serif leading-relaxed italic mb-10 text-brand-black">
+                      "Their political strategy helped us design a winning campaign that truly connected with people.
+                      Highly recommended."
+                    </p>
+                    <div class="pt-10 border-t border-black/5">
+                      <span class="font-bold text-2xl block text-brand-black">Mahesh K</span>
+                      <span class="text-brand-red font-medium text-base uppercase tracking-[0.2em] mt-3 block">Political
+                        Leader</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 2: Nexilra Technologies -->
+              <div
+                class="testimonial-reveal-card absolute inset-0 opacity-0 pointer-events-none transition-all duration-1000 transform translate-y-8"
+                data-index="1">
+                <div class="bg-white/40 backdrop-blur-sm p-10 md:p-16 rounded-sm max-w-5xl">
+                  <div class="flex-1">
+                    <div class="flex gap-1 text-brand-red mb-8">
+                      <i data-lucide="star" class="w-6 h-6 fill-current"></i>
+                      <i data-lucide="star" class="w-6 h-6 fill-current"></i>
+                      <i data-lucide="star" class="w-6 h-6 fill-current"></i>
+                      <i data-lucide="star" class="w-6 h-6 fill-current"></i>
+                      <i data-lucide="star" class="w-6 h-6 fill-current"></i>
+                    </div>
+                    <p class="text-2xl md:text-3xl font-serif leading-relaxed italic mb-10 text-brand-black">
+                      "Working with Chirantana Studios was a smooth and professional experience. Their team understood
+                      our requirements clearly, added creative value at every stage, and delivered high-quality output
+                      that matched our expectations."
+                    </p>
+                    <div class="pt-10 border-t border-black/5">
+                      <span class="font-bold text-2xl block text-brand-black">Nexilra Technologies</span>
+                      <span class="text-brand-red font-medium text-base uppercase tracking-[0.2em] mt-3 block">Digital
+                        Innovation Partner</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 3: Neha M -->
+              <div
+                class="testimonial-reveal-card absolute inset-0 opacity-0 pointer-events-none transition-all duration-1000 transform translate-y-8"
+                data-index="2">
+                <div class="bg-white/40 backdrop-blur-sm p-10 md:p-16 rounded-sm max-w-5xl">
+                  <div class="flex-1">
+                    <div class="flex gap-1 text-brand-red mb-8">
+                      <i data-lucide="star" class="w-6 h-6 fill-current"></i>
+                      <i data-lucide="star" class="w-6 h-6 fill-current"></i>
+                      <i data-lucide="star" class="w-6 h-6 fill-current"></i>
+                      <i data-lucide="star" class="w-6 h-6 fill-current"></i>
+                      <i data-lucide="star-half" class="w-6 h-6 fill-current"></i>
+                    </div>
+                    <p class="text-2xl md:text-4xl font-serif leading-relaxed italic mb-10 text-brand-black">
+                      "From pre-production to post, every step with Chirantana Studio was a smooth, creative, and
+                      fulfilling experience."
+                    </p>
+                    <div class="pt-10 border-t border-black/5">
+                      <span class="font-bold text-2xl block text-brand-black">Neha M</span>
+                      <span class="text-brand-red font-medium text-base uppercase tracking-[0.2em] mt-3 block">Creative
+                        Director</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 4: Satyabodh Joshi -->
+              <div
+                class="testimonial-reveal-card absolute inset-0 opacity-0 pointer-events-none transition-all duration-1000 transform translate-y-8"
+                data-index="3">
+                <div class="bg-white/40 backdrop-blur-sm p-10 md:p-16 rounded-sm max-w-5xl">
+                  <div class="flex-1">
+                    <div class="flex gap-1 text-brand-red mb-8">
+                      <i data-lucide="star" class="w-6 h-6 fill-current"></i>
+                      <i data-lucide="star" class="w-6 h-6 fill-current"></i>
+                      <i data-lucide="star" class="w-6 h-6 fill-current"></i>
+                      <i data-lucide="star" class="w-6 h-6 fill-current"></i>
+                      <i data-lucide="star" class="w-6 h-6 fill-current"></i>
+                    </div>
+                    <p
+                      class="text-xl md:text-2xl font-serif leading-relaxed italic mb-10 text-brand-black overflow-y-auto max-h-[250px] custom-scrollbar pr-4">
+                      "Mahesh! is one of his kind ! Be it in the Skill of Editing or in the plethora of Technical
+                      knowledge or be it in the scholorly insight of the overall platter of creative process of visual
+                      storytelling, He is simply commendable. He is kind, Dedicated and immensely sophisticated."
+                    </p>
+                    <div class="pt-10 border-t border-black/5">
+                      <span class="font-bold text-2xl block text-brand-black">Satyabodh Joshi</span>
+                      <span class="text-brand-red font-medium text-base uppercase tracking-[0.2em] mt-3 block">Veteran
+                        Artist</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 5: Yogesh Shankar Narayan -->
+              <div
+                class="testimonial-reveal-card absolute inset-0 opacity-0 pointer-events-none transition-all duration-1000 transform translate-y-8"
+                data-index="4">
+                <div class="bg-white/40 backdrop-blur-sm p-10 md:p-16 rounded-sm max-w-5xl">
+                  <div class="flex-1">
+                    <div class="flex gap-1 text-brand-red mb-8">
+                      <i data-lucide="star" class="w-6 h-6 fill-current"></i>
+                      <i data-lucide="star" class="w-6 h-6 fill-current"></i>
+                      <i data-lucide="star" class="w-6 h-6 fill-current"></i>
+                      <i data-lucide="star" class="w-6 h-6 fill-current"></i>
+                      <i data-lucide="star" class="w-6 h-6 fill-current"></i>
+                    </div>
+                    <p
+                      class="text-lg md:text-xl font-serif leading-relaxed italic mb-10 text-brand-black overflow-y-auto max-h-[300px] custom-scrollbar pr-4">
+                      "I’ve had the pleasure of working with Mahesh N Chidre on multiple projects—and I can confidently
+                      say he’s one of the most talented and committed creatives I’ve come across in the industry. He
+                      doesn’t just edit or produce content—he breathes life into it."
+                    </p>
+                    <div class="pt-10 border-t border-black/5">
+                      <span class="font-bold text-2xl block text-brand-black">Yogesh Shankar Narayan</span>
+                      <span class="text-brand-red font-medium text-base uppercase tracking-[0.2em] mt-3 block">Actor &
+                        Filmmaker</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 6: Rajesh R -->
+              <div
+                class="testimonial-reveal-card absolute inset-0 opacity-0 pointer-events-none transition-all duration-1000 transform translate-y-8"
+                data-index="5">
+                <div class="bg-white/40 backdrop-blur-sm p-10 md:p-16 rounded-sm max-w-5xl">
+                  <div class="flex-1">
+                    <div class="flex gap-1 text-brand-red mb-8">
+                      <i data-lucide="star" class="w-6 h-6 fill-current"></i>
+                      <i data-lucide="star" class="w-6 h-6 fill-current"></i>
+                      <i data-lucide="star" class="w-6 h-6 fill-current"></i>
+                      <i data-lucide="star" class="w-6 h-6 fill-current"></i>
+                      <i data-lucide="star-half" class="w-6 h-6 fill-current"></i>
+                    </div>
+                    <p class="text-2xl md:text-4xl font-serif leading-relaxed italic mb-10 text-brand-black">
+                      "Chirantana Studio transformed our vision into a masterpiece. Their team’s professionalism,
+                      creativity, and dedication are unmatched."
+                    </p>
+                    <div class="pt-10 border-t border-black/5">
+                      <span class="font-bold text-2xl block text-brand-black">Rajesh R</span>
+                      <span class="text-brand-red font-medium text-base uppercase tracking-[0.2em] mt-3 block">Brand
+                        Strategist</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card 7: Divya S -->
+              <div
+                class="testimonial-reveal-card absolute inset-0 opacity-0 pointer-events-none transition-all duration-1000 transform translate-y-8"
+                data-index="6">
+                <div class="bg-white/40 backdrop-blur-sm p-10 md:p-16 rounded-sm max-w-5xl">
+                  <div class="flex-1">
+                    <div class="flex gap-1 text-brand-red mb-8">
+                      <i data-lucide="star" class="w-6 h-6 fill-current"></i>
+                      <i data-lucide="star" class="w-6 h-6 fill-current"></i>
+                      <i data-lucide="star" class="w-6 h-6 fill-current"></i>
+                      <i data-lucide="star" class="w-6 h-6 fill-current"></i>
+                      <i data-lucide="star-half" class="w-6 h-6 fill-current"></i>
+                    </div>
+                    <p class="text-2xl md:text-3xl font-serif leading-relaxed italic mb-10 text-brand-black">
+                      "Working with Chirantana was a dream. They handled our product launch film with such finesse and
+                      global quality."
+                    </p>
+                    <div class="pt-10 border-t border-black/5">
+                      <span class="font-bold text-2xl block text-brand-black">Divya S</span>
+                      <span class="text-brand-red font-medium text-base uppercase tracking-[0.2em] mt-3 block">Marketing
+                        Head</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </section>
+
 
       <!-- Manifesto -->
       <section id="manifesto" class="py-32 bg-brand-light text-brand-black">
@@ -1298,209 +1786,7 @@
         </div>
       </section>
 
-      <!-- Pillar 4 -->
-      <section id="captures" class="py-32 bg-brand-black text-white">
-        <div class="max-w-7xl mx-auto px-6">
-          <div class="mb-16 text-center md:text-left">
-            <span class="text-brand-red font-semibold tracking-wider text-sm uppercase mb-4 block">Pillar IV</span>
-            <h2 class="text-4xl md:text-5xl font-serif leading-tight mb-6">Signature <span
-                class="italic text-white/70">Captures</span></h2>
-            <p
-              class="text-lg text-white/60 font-light max-w-2xl leading-relaxed mx-auto md:mx-0 observe-fade-in-right opacity-0 translate-x-12 transition duration-1000 observe-split-text slide-right">
-              A distinct sub-world
-              of Chirantana Studio dedicated to personal milestones, high-end events, and editorial photography. Warmer,
-              more emotional, yet retaining our signature cinematic polish.</p>
-          </div>
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div
-              class="observe-fade-in-up-stagger opacity-0 translate-y-12 transition duration-1000 delay-100 group cursor-pointer">
-              <div class="aspect-[3/4] bg-brand-black mb-6 relative overflow-hidden rounded-sm">
-                <img src="assets/3 images/Photoshoot.jpeg" alt="Photoshoots"
-                  class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" />
-                <div
-                  class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10">
-                </div>
-                <div
-                  class="absolute bottom-6 left-6 right-6 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-y-4 group-hover:translate-y-0">
-                  <a href="#portfolio"
-                    class="text-sm font-medium text-white hover:text-brand-red transition-colors">View
-                    Portfolio →</a>
-                </div>
-              </div>
-              <h3 class="text-2xl font-serif mb-2">Photoshoots</h3>
-              <p class="text-white/60 font-light observe-split-text slide-right">Editorial, fashion, and corporate
-                portraits.</p>
-            </div>
-            <div
-              class="observe-fade-in-up-stagger opacity-0 translate-y-12 transition duration-1000 delay-200 group cursor-pointer">
-              <div class="aspect-[3/4] bg-brand-black mb-6 relative overflow-hidden rounded-sm">
-                <img src="assets/3 images/event coverage.jpg" alt="Event Coverage"
-                  class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" />
-                <div
-                  class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10">
-                </div>
-                <div
-                  class="absolute bottom-6 left-6 right-6 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-y-4 group-hover:translate-y-0">
-                  <a href="#portfolio"
-                    class="text-sm font-medium text-white hover:text-brand-red transition-colors">View
-                    Portfolio →</a>
-                </div>
-              </div>
-              <h3 class="text-2xl font-serif mb-2">Event Coverage</h3>
-              <p class="text-white/60 font-light observe-split-text slide-right">Discreet, high-end documentation of
-                significant moments.</p>
-            </div>
-            <div
-              class="observe-fade-in-up-stagger opacity-0 translate-y-12 transition duration-1000 delay-300 group cursor-pointer">
-              <div class="aspect-[3/4] bg-brand-black mb-6 relative overflow-hidden rounded-sm">
-                <img src="assets/3 images/wedding cinematography.jpg" alt="Wedding Cinematography"
-                  class="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out" />
-                <div
-                  class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10">
-                </div>
-                <div
-                  class="absolute bottom-6 left-6 right-6 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 translate-y-4 group-hover:translate-y-0">
-                  <a href="#portfolio"
-                    class="text-sm font-medium text-white hover:text-brand-red transition-colors">View
-                    Portfolio →</a>
-                </div>
-              </div>
-              <h3 class="text-2xl font-serif mb-2">Wedding Cinematography</h3>
-              <p class="text-white/60 font-light observe-split-text slide-right">Emotional, cinematic storytelling for
-                premium celebrations.</p>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      <!-- Testimonials -->
-      <!-- Testimonials -->
-      <section class="py-32 bg-brand-light text-brand-black overflow-hidden relative">
-        <div class="max-w-7xl mx-auto px-6">
-          <div class="text-center mb-16">
-            <span class="text-brand-red font-semibold tracking-wider text-sm uppercase mb-4 block">Client
-              Perspectives</span>
-            <h2 class="text-4xl md:text-5xl font-serif text-brand-black">Voices of Trust</h2>
-          </div>
-
-          <div class="testimonial-slider-container relative">
-            <div id="testimonial-track"
-              class="flex gap-6 overflow-x-hidden cursor-grab active:cursor-grabbing pb-12 transition-all">
-
-              <!-- Card 1: Mahesh K -->
-              <div
-                class="testimonial-card min-w-[100%] md:min-w-[calc(50%-12px)] h-[550px] md:h-[600px] select-none snap-center bg-white border border-black/5 p-10 md:p-12 rounded-sm shadow-sm flex flex-col justify-between cursor-grab active:cursor-grabbing">
-                <div>
-                  <span class="text-4xl font-serif text-brand-red/20 block mb-6">"</span>
-                  <p class="text-xl md:text-2xl font-serif leading-relaxed italic observe-split-text slide-right"
-                    data-text="Their political strategy helped us design a winning campaign that truly connected with people. Highly recommended.">
-                    Their political strategy helped us design a winning campaign that truly connected with people.
-                    Highly recommended.
-                  </p>
-                </div>
-                <div class="mt-8 pt-8 border-t border-black/5">
-                  <span class="font-bold text-lg block">Mahesh K</span>
-                  <span class="text-brand-red font-medium text-xs uppercase tracking-widest mt-1">Political
-                    Leader</span>
-                </div>
-              </div>
-
-              <!-- Card 2: Neha M -->
-              <div
-                class="testimonial-card min-w-[100%] md:min-w-[calc(50%-12px)] h-[550px] md:h-[600px] select-none snap-center bg-white border border-black/5 p-10 md:p-12 rounded-sm shadow-sm flex flex-col justify-between cursor-grab active:cursor-grabbing">
-                <div>
-                  <span class="text-4xl font-serif text-brand-red/20 block mb-6">"</span>
-                  <p class="text-xl md:text-2xl font-serif leading-relaxed italic observe-split-text slide-right"
-                    data-text="From pre-production to post, every step with Chirantana Studio was a smooth, creative, and fulfilling experience.">
-                    From pre-production to post, every step with Chirantana Studio was a smooth, creative, and
-                    fulfilling experience.
-                  </p>
-                </div>
-                <div class="mt-8 pt-8 border-t border-black/5">
-                  <span class="font-bold text-lg block">Neha M</span>
-                </div>
-              </div>
-
-              <!-- Card 3: Satyabodh Joshi -->
-              <div
-                class="testimonial-card min-w-[100%] md:min-w-[calc(50%-12px)] h-[550px] md:h-[600px] select-none snap-center bg-white border border-black/5 p-10 md:p-12 rounded-sm shadow-sm flex flex-col justify-between cursor-grab active:cursor-grabbing">
-                <div>
-                  <span class="text-4xl font-serif text-brand-red/20 block mb-6">"</span>
-                  <p class="text-lg md:text-xl font-serif leading-relaxed italic observe-split-text slide-right"
-                    data-text="Mahesh! is one of his kind ! Be it in the Skill of Editing or in the plethora of Technical knowledge or be it in the scholorly insight of the overall platter of creative process of visual storytelling, He is simply commendable. Comprehending much more beyond the spoken , written , while at the ease he traverses through the process of it is something magical. He is kind , Dedicated and immensely sophisticated in his approach which a Seasoned Artist only can Earn!">
-                    Mahesh! is one of his kind ! Be it in the Skill of Editing or in the plethora of Technical knowledge
-                    or be it in the scholorly insight of the overall platter of creative process of visual storytelling,
-                    He is simply commendable. Comprehending much more beyond the spoken , written , while at the ease he
-                    traverses through the process of it is something magical. He is kind , Dedicated and immensely
-                    sophisticated in his approach which a Seasoned Artist only can Earn!
-                  </p>
-                </div>
-                <div class="mt-8 pt-8 border-t border-black/5">
-                  <span class="font-bold text-lg block">Satyabodh Joshi</span>
-                </div>
-              </div>
-
-              <!-- Card 4: Yogesh Shankar Narayan -->
-              <div
-                class="testimonial-card min-w-[100%] md:min-w-[calc(50%-12px)] h-[550px] md:h-[600px] select-none snap-center bg-white border border-black/5 p-10 md:p-12 rounded-sm shadow-sm flex flex-col justify-between cursor-grab active:cursor-grabbing">
-                <div>
-                  <span class="text-4xl font-serif text-brand-red/20 block mb-6">"</span>
-                  <p class="text-base md:text-lg font-serif leading-relaxed italic observe-split-text slide-right"
-                    data-text="I’ve had the pleasure of working with Mahesh N Chidre on multiple projects, including Mootae and the Rakhta Charithra album—and I can confidently say he’s one of the most talented and committed creatives I’ve come across in the industry. His eye for detail, deep understanding of storytelling, and ability to translate emotions into powerful visuals is truly remarkable. As an actor and writer in the Kannada film industry, I’ve seen how Mahesh elevates every project with his passion, precision, and artistic vision. He doesn’t just edit or produce content—he breathes life into it. Wishing him all the success as he launches his own production house. The world needs more storytellers like him.">
-                    I’ve had the pleasure of working with Mahesh N Chidre on multiple projects, including Mootae and the
-                    Rakhta Charithra album—and I can confidently say he’s one of the most talented and committed
-                    creatives I’ve come across in the industry.
-                    His eye for detail, deep understanding of storytelling, and ability to translate emotions into
-                    powerful visuals is truly remarkable. As an actor and writer in the Kannada film industry, I’ve seen
-                    how Mahesh elevates every project with his passion, precision, and artistic vision.
-                    He doesn’t just edit or produce content—he breathes life into it. Wishing him all the success as he
-                    launches his own production house. The world needs more storytellers like him.
-                  </p>
-                </div>
-                <div class="mt-8 pt-8 border-t border-black/5">
-                  <span class="font-bold text-lg block">Yogesh Shankar Narayan</span>
-                  <span class="text-brand-red font-medium text-xs uppercase tracking-widest mt-1">Actor & Filmmaker |
-                    Kannada Film Industry</span>
-                </div>
-              </div>
-
-              <!-- Card 5: Rajesh R -->
-              <div
-                class="testimonial-card min-w-[100%] md:min-w-[calc(50%-12px)] h-[550px] md:h-[600px] select-none snap-center bg-white border border-black/5 p-10 md:p-12 rounded-sm shadow-sm flex flex-col justify-between cursor-grab active:cursor-grabbing">
-                <div>
-                  <span class="text-4xl font-serif text-brand-red/20 block mb-6">"</span>
-                  <p class="text-xl md:text-2xl font-serif leading-relaxed italic observe-split-text slide-right"
-                    data-text="Chirantana Studio transformed our vision into a masterpiece. Their team’s professionalism, creativity, and dedication are unmatched.">
-                    Chirantana Studio transformed our vision into a masterpiece. Their team’s professionalism,
-                    creativity, and dedication are unmatched.
-                  </p>
-                </div>
-                <div class="mt-8 pt-8 border-t border-black/5">
-                  <span class="font-bold text-lg block">Rajesh R</span>
-                </div>
-              </div>
-
-              <!-- Card 6: Divya S -->
-              <div
-                class="testimonial-card min-w-[100%] md:min-w-[calc(50%-12px)] h-[550px] md:h-[600px] select-none snap-center bg-white border border-black/5 p-10 md:p-12 rounded-sm shadow-sm flex flex-col justify-between cursor-grab active:cursor-grabbing">
-                <div>
-                  <span class="text-4xl font-serif text-brand-red/20 block mb-6">"</span>
-                  <p class="text-xl md:text-2xl font-serif leading-relaxed italic observe-split-text slide-right"
-                    data-text="Working with Chirantana was a dream. They handled our product launch film with such finesse and global quality.">
-                    Working with Chirantana was a dream. They handled our product launch film with such finesse and
-                    global quality.
-                  </p>
-                </div>
-                <div class="mt-8 pt-8 border-t border-black/5">
-                  <span class="font-bold text-lg block">Divya S</span>
-                  <span class="text-brand-red font-medium text-xs uppercase tracking-widest mt-1">Marketing Head</span>
-                </div>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </section>
 
       <!-- Team -->
       <section id="team" class="py-32 bg-brand-black text-white">
@@ -1717,30 +2003,9 @@
                     delivers in impact.</p>
                 </div>
               </div>
-              <!-- Chaitanya -->
-              <div
-                class="observe-fade-in-up-stagger opacity-0 translate-y-10 transition duration-700 delay-300 group relative w-full md:w-[calc(50%-2rem)] lg:w-[calc(33.33%-3rem)] max-w-[400px]">
-                <div
-                  class="relative overflow-hidden aspect-square rounded-full max-w-[280px] mx-auto mb-6 shadow-2xl bg-white/5 border border-white/5 group-hover:border-brand-red/30 transition duration-500">
-                  <img src="assets/team/chaitanya.jpg" alt="Chaitanya" loading="lazy"
-                    class="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition duration-700 group-hover:scale-105" />
-                  <div
-                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500 rounded-full">
-                  </div>
-                </div>
-                <div class="relative text-center">
-                  <h4 class="font-serif text-xl mb-1 group-hover:text-brand-red/90 transition-colors duration-300">
-                    Chaitanya</h4>
-                  <p class="text-brand-red/50 text-[10px] font-bold uppercase tracking-[0.3em] mb-3">Operations &
-                    Project Manager</p>
-                  <p class="text-gray-500 text-sm leading-relaxed font-light observe-split-text slide-right">Keeps the
-                    chaos organized and the
-                    execution on track.</p>
-                </div>
-              </div>
               <!-- Srini -->
               <div
-                class="observe-fade-in-up-stagger opacity-0 translate-y-10 transition duration-700 delay-[350ms] group relative w-full md:w-[calc(50%-2rem)] lg:w-[calc(33.33%-3rem)] max-w-[400px]">
+                class="observe-fade-in-up-stagger opacity-0 translate-y-10 transition duration-700 delay-300 group relative w-full md:w-[calc(50%-2rem)] lg:w-[calc(33.33%-3rem)] max-w-[400px]">
                 <div
                   class="relative overflow-hidden aspect-square rounded-full max-w-[280px] mx-auto mb-6 shadow-2xl bg-white/5 border border-white/5 group-hover:border-brand-red/30 transition duration-500">
                   <img src="assets/team/srini.webp" alt="Srini" loading="lazy"
@@ -1761,7 +2026,7 @@
               </div>
               <!-- Samarth Shridar -->
               <div
-                class="observe-fade-in-up-stagger opacity-0 translate-y-10 transition duration-700 delay-[400ms] group relative w-full md:w-[calc(50%-2rem)] lg:w-[calc(33.33%-3rem)] max-w-[400px]">
+                class="observe-fade-in-up-stagger opacity-0 translate-y-10 transition duration-700 delay-[350ms] group relative w-full md:w-[calc(50%-2rem)] lg:w-[calc(33.33%-3rem)] max-w-[400px]">
                 <div
                   class="relative overflow-hidden aspect-square rounded-full max-w-[280px] mx-auto mb-6 shadow-2xl bg-white/5 border border-white/5 group-hover:border-brand-red/30 transition duration-500">
                   <img src="assets/team/samarth.jpg" alt="Samarth Shridar" loading="lazy"
@@ -1782,7 +2047,7 @@
               </div>
               <!-- Preethi -->
               <div
-                class="observe-fade-in-up-stagger opacity-0 translate-y-10 transition duration-700 delay-[500ms] group relative w-full md:w-[calc(50%-2rem)] lg:w-[calc(33.33%-3rem)] max-w-[400px]">
+                class="observe-fade-in-up-stagger opacity-0 translate-y-10 transition duration-700 delay-[400ms] group relative w-full md:w-[calc(50%-2rem)] lg:w-[calc(33.33%-3rem)] max-w-[400px]">
                 <div
                   class="relative overflow-hidden aspect-square rounded-full max-w-[280px] mx-auto mb-6 shadow-2xl bg-white/5 border border-white/5 group-hover:border-brand-red/30 transition duration-500">
                   <img src="assets/team/preethi.webp" alt="Preethi" loading="lazy"
@@ -1802,6 +2067,27 @@
                     process, and production aligned. Ensures every project moves from concept to execution with
                     clarity
                     and flow.</p>
+                </div>
+              </div>
+              <!-- Chaitanya -->
+              <div
+                class="observe-fade-in-up-stagger opacity-0 translate-y-10 transition duration-700 delay-[500ms] group relative w-full md:w-[calc(50%-2rem)] lg:w-[calc(33.33%-3rem)] max-w-[400px]">
+                <div
+                  class="relative overflow-hidden aspect-square rounded-full max-w-[280px] mx-auto mb-6 shadow-2xl bg-white/5 border border-white/5 group-hover:border-brand-red/30 transition duration-500">
+                  <img src="assets/team/chaitanya.jpg" alt="Chaitanya" loading="lazy"
+                    class="w-full h-full object-cover object-top grayscale group-hover:grayscale-0 transition duration-700 group-hover:scale-105" />
+                  <div
+                    class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-500 rounded-full">
+                  </div>
+                </div>
+                <div class="relative text-center">
+                  <h4 class="font-serif text-xl mb-1 group-hover:text-brand-red/90 transition-colors duration-300">
+                    Chaitanya</h4>
+                  <p class="text-brand-red/50 text-[10px] font-bold uppercase tracking-[0.3em] mb-3">Operations &
+                    Project Manager</p>
+                  <p class="text-gray-500 text-sm leading-relaxed font-light observe-split-text slide-right">Keeps the
+                    chaos organized and the
+                    execution on track.</p>
                 </div>
               </div>
             </div>
@@ -2100,9 +2386,9 @@
               <div class="space-y-8">
                 <div>
                   <h4 class="text-white/40 uppercase tracking-widest font-bold text-[10px] mb-3">Direct Inquiry</h4>
-                  <p
+                  <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hello@chirantanastudios.com" target="_blank"
                     class="text-xl md:text-2xl font-serif hover:text-brand-red transition-colors cursor-pointer border-b border-white/10 pb-2 inline-block">
-                    hr@chirantanastudios.com</p>
+                    hello@chirantanastudios.com</a>
                 </div>
                 <div>
                   <h4 class="text-white/40 uppercase tracking-widest font-bold text-[10px] mb-3">Confidential Channel
@@ -2204,7 +2490,7 @@
               <li><a href="index.html#digital" class="hover:text-white transition-colors">Brand & Digital
                   Amplification</a></li>
               <li><a href="index.html#public-affairs" class="hover:text-white transition-colors">Public Affairs</a></li>
-              <li><a href="index.html#captures" class="hover:text-white transition-colors">Signature Captures</a></li>
+
             </ul>
           </div>
           <div>
@@ -2212,16 +2498,30 @@
             <div class="flex flex-wrap gap-4 text-white/50">
               <a href="https://www.instagram.com/chirantanastudio" target="_blank" rel="noopener noreferrer"
                 class="hover:text-white transition-colors"><i data-lucide="instagram" class="w-[18px] h-[18px]"></i></a>
-              <a href="https://www.linkedin.com/company/chirantana-studio/" target="_blank" rel="noopener noreferrer"
-                class="hover:text-white transition-colors"><i data-lucide="linkedin" class="w-[18px] h-[18px]"></i></a>
+              <a href="https://wa.me/919663351768?text=Hi,%20Chirantana" target="_blank" rel="noopener noreferrer"
+                class="hover:text-white transition-colors"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  class="w-[18px] h-[18px]">
+                  <path d="M3 21l1.65 -3.8a9 9 0 1 1 3.4 2.9l-5.05 .9" />
+                  <path
+                    d="M9 10a.5 .5 0 0 0 1 0v-1a.5 .5 0 0 0 -1 0v1a5 5 0 0 0 5 5h1a.5 .5 0 0 0 0 -1h-1a.5 .5 0 0 0 0 1" />
+                </svg></a>
               <a href="https://youtube.com/@justfactkannada?si=lX_aqMEjgPyd5ARQ" target="_blank"
                 rel="noopener noreferrer" class="hover:text-white transition-colors"><i data-lucide="youtube"
                   class="w-[18px] h-[18px]"></i></a>
               <a href="https://x.com/Chirantana_" target="_blank" rel="noopener noreferrer"
-                class="hover:text-white transition-colors"><i data-lucide="twitter" class="w-[18px] h-[18px]"></i></a>
+                class="hover:text-white transition-colors"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                  fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                  class="w-[18px] h-[18px]">
+                  <path d="M4 4l11.733 16h4.267l-11.733 -16z" />
+                  <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
+                </svg></a>
               <a href="https://www.facebook.com/share/1A1cbGfsty/" target="_blank" rel="noopener noreferrer"
                 class="hover:text-white transition-colors"><i data-lucide="facebook" class="w-[18px] h-[18px]"></i></a>
-              <a href="mailto:hr@chirantanastudios.com" class="hover:text-white transition-colors"><i data-lucide="mail"
+              <a href="https://www.linkedin.com/company/chirantana-studio/" target="_blank" rel="noopener noreferrer"
+                class="hover:text-white transition-colors"><i data-lucide="linkedin" class="w-[18px] h-[18px]"></i></a>
+              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=hello@chirantanastudios.com" target="_blank"
+                rel="noopener noreferrer" class="hover:text-white transition-colors"><i data-lucide="mail"
                   class="w-[18px] h-[18px]"></i></a>
               <a href="tel:+919663351768" class="hover:text-white transition-colors"><i data-lucide="phone"
                   class="w-[18px] h-[18px]"></i></a>

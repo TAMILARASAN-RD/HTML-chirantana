@@ -87,3 +87,4 @@
   border: 1px solid #ED2127;
   opacity: 1;
 }
+@keyframes text-glow { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } } .text-glow-animated { background: linear-gradient(to right, #ea580c, #eab308, #22c55e, #06b6d4, #3b82f6, #a855f7, #ea580c); background-size: 200% auto; color: transparent; -webkit-background-clip: text; background-clip: text; animation: text-glow 4s linear infinite; filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.15)); }

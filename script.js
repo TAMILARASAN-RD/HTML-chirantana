@@ -38,11 +38,11 @@ document.addEventListener("DOMContentLoaded", () => {
         // If there's no loading sequence (like on sub-pages), unlock scroll immediately
         document.body.style.overflow = '';
         if (appContainer) {
-            
+
             // tiny delay to ensure CSS transition triggers properly on non-home pages
             setTimeout(() => {
-               appContainer.classList.remove("opacity-0");
-               appContainer.classList.add("reveal-ready");
+                appContainer.classList.remove("opacity-0");
+                appContainer.classList.add("reveal-ready");
             }, 50);
         }
     }
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (navbar) {
         navbar.classList.add("bg-brand-black/90", "backdrop-blur-md", "py-4", "shadow-sm", "shadow-white/5");
         navbar.classList.remove("bg-transparent", "py-6");
-        
+
         window.addEventListener("scroll", () => {
             // Keep it simple, just enforce the dark state if needed, but it shouldn't revert
         });
@@ -84,29 +84,29 @@ document.addEventListener("DOMContentLoaded", () => {
     const narrativeContainer = document.getElementById("narrative-container");
     const narrativeIndicators = document.getElementById("narrative-indicators");
     const narrativeCta = document.getElementById("narrative-cta");
-    
+
     const narrativeLines = [
-      "You have a product.",
-      "You have ambition.",
-      "You have campaigns running.",
-      "But something is not connecting.",
-      "It is not visibility you lack.",
-      "It is narrative clarity.",
-      "Welcome to Chirantana.",
-      "In Sanskrit, Chirantana means eternal. Timeless. Everlasting.",
-      "Campaigns come and go.",
-      "Trends rise and fall.",
-      "Algorithms change.",
-      "Stories remain.",
-      "We do not create content for the moment.",
-      "We build stories that become identity."
+        "You have a product",
+        "You have ambition",
+        "You have campaigns running",
+        "But something is not connecting",
+        "It is not visibility you lack",
+        "It is narrative clarity",
+        "Welcome to Chirantana",
+        "In Sanskrit, Chirantana means eternal. Timeless. Everlasting",
+        "Campaigns come and go",
+        "Trends rise and fall",
+        "Algorithms change",
+        "Stories remain",
+        "We do not create content for the moment",
+        "We build stories that become identity."
     ];
 
     if (narrativeSection && narrativeContainer) {
         // Generate Lines
         narrativeLines.forEach((line, i) => {
             const isSpecial = line.includes("Chirantana") || line.includes("identity") || line.includes("Stories remain");
-            
+
             const div = document.createElement("div");
             div.className = "narrative-line absolute inset-0 flex items-center justify-center p-4 text-center pointer-events-none opacity-0 translate-y-[350px] scale-90 will-change-transform";
             div.innerHTML = `<p class="text-3xl md:text-5xl lg:text-7xl font-serif leading-tight ${isSpecial ? 'text-brand-red italic' : 'text-white'}">${line}</p>`;
@@ -132,11 +132,11 @@ document.addEventListener("DOMContentLoaded", () => {
                     const totalScrollable = rect.height - window.innerHeight;
                     const currentScroll = -rect.top;
                     const progress = Math.min(Math.max(currentScroll / totalScrollable, 0), 1);
-                    
+
                     const totalRange = 0.98; // Lines fill almost the entire scroll track
                     const step = totalRange / narrativeLines.length;
                     const activeIndex = Math.min(Math.floor(progress / step), narrativeLines.length - 1);
-                    
+
                     linesDOM.forEach((line, i) => {
                         const center = (i + 0.5) * step;
                         let opacity = 0;
@@ -150,7 +150,7 @@ document.addEventListener("DOMContentLoaded", () => {
                             opacity = 1 - Math.abs(dist) / (1.0 * step);
                         }
 
-                        // Transform curve
+                        // Transform curve (Scale)
                         if (Math.abs(dist) < 1.0 * step) {
                             scale = 0.85 + (0.3 * (1 - Math.abs(dist) / step));
                         }
@@ -159,6 +159,13 @@ document.addEventListener("DOMContentLoaded", () => {
                             y = Math.min(350, Math.max(0, 350 * Math.abs(dist) / step));
                         } else {
                             y = -Math.min(350, Math.max(0, 350 * Math.abs(dist) / step));
+                        }
+
+                        // PIN the last line: no fade, no slide, no scale down once reached to keep it bright and centered
+                        if (i === narrativeLines.length - 1 && dist > 0) {
+                            opacity = 1;
+                            scale = 1.15;
+                            y = 0;
                         }
 
                         line.style.opacity = Math.max(0, opacity);
@@ -175,19 +182,19 @@ document.addEventListener("DOMContentLoaded", () => {
                     });
 
                     // CTA Appears exactly as last lines finish for a truly seamless exit
-                    const ctaStart = 0.88; 
-                    const ctaEnd = 1.0;   
+                    const ctaStart = 0.92; // Delayed slightly so last text is fully readable
+                    const ctaEnd = 1.0;
                     if (progress > ctaStart && narrativeCta) {
                         const ctaProgress = Math.min((progress - ctaStart) / (ctaEnd - ctaStart), 1);
                         narrativeCta.style.opacity = ctaProgress.toString();
                         narrativeCta.style.pointerEvents = "auto";
-                        narrativeCta.style.transform = `translateY(${(1 - ctaProgress) * 20}px) scale(${0.9 + 0.1 * ctaProgress})`;
+                        narrativeCta.style.transform = `translateY(${(1 - ctaProgress) * 10}px) scale(${0.95 + 0.05 * ctaProgress})`;
                     } else if (narrativeCta) {
                         narrativeCta.style.opacity = "0";
                         narrativeCta.style.pointerEvents = "none";
                         narrativeCta.style.transform = "translateY(20px) scale(0.9)";
                     }
-                    
+
                     ticking = false;
                 });
                 ticking = true;
@@ -206,7 +213,7 @@ document.addEventListener("DOMContentLoaded", () => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const target = entry.target;
-                
+
                 if (target.classList.contains('observe-fade-in-left')) {
                     target.classList.remove('opacity-0', '-translate-x-12', 'translate-x-8');
                 } else if (target.classList.contains('observe-fade-in-left-stagger')) {
@@ -223,15 +230,15 @@ document.addEventListener("DOMContentLoaded", () => {
                     const text = target.getAttribute('data-text') || target.innerText;
                     target.innerHTML = '';
                     target.classList.remove('opacity-0');
-                    
+
                     const words = text.trim().split(/\s+/);
                     const allChars = [];
-                    
+
                     words.forEach((word, wIdx) => {
                         const wordSpan = document.createElement("span");
                         wordSpan.style.display = 'inline-block';
                         wordSpan.style.whiteSpace = 'nowrap';
-                        
+
                         word.split('').forEach(char => {
                             const charDiv = document.createElement("div");
                             charDiv.style.position = 'relative';
@@ -243,24 +250,24 @@ document.addEventListener("DOMContentLoaded", () => {
                             wordSpan.appendChild(charDiv);
                             allChars.push(charDiv);
                         });
-                        
+
                         target.appendChild(wordSpan);
-                        
+
                         // Add space after word (except last)
                         if (wIdx < words.length - 1) {
                             const space = document.createTextNode(' ');
                             target.appendChild(space);
                         }
                     });
-                    
+
                     allChars.forEach((charDiv, i) => {
                         setTimeout(() => {
                             charDiv.style.opacity = '1';
                             charDiv.style.transform = target.classList.contains('slide-right') ? 'translateX(0px)' : 'translateY(0px)';
-                        }, i * 8); 
+                        }, i * 8);
                     });
                 }
-                
+
                 obs.unobserve(target);
             }
         });
@@ -270,7 +277,7 @@ document.addEventListener("DOMContentLoaded", () => {
         // Pre-store text for split/typing animations
         if (el.classList.contains('observe-split-text')) {
             el.setAttribute('data-text', el.innerText);
-            el.innerHTML = '&nbsp;'; 
+            el.innerHTML = '&nbsp;';
             el.classList.add('opacity-0');
         }
         observer.observe(el);
@@ -309,20 +316,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // ======== FAQ Accordion Logic ========
     const faqButtons = document.querySelectorAll('.faq-btn');
-    
+
     faqButtons.forEach(btn => {
         btn.addEventListener('click', () => {
             const isExpanded = btn.getAttribute('aria-expanded') === 'true';
             const content = btn.nextElementSibling;
             const icon = btn.querySelector('.faq-icon');
-            
+
             // Close all others
             faqButtons.forEach(otherBtn => {
                 if (otherBtn !== btn) {
                     otherBtn.setAttribute('aria-expanded', 'false');
                     const otherContent = otherBtn.nextElementSibling;
                     const otherIcon = otherBtn.querySelector('.faq-icon');
-                    
+
                     otherContent.style.height = '0px';
                     otherContent.style.opacity = '0';
                     setTimeout(() => {
@@ -355,10 +362,10 @@ document.addEventListener("DOMContentLoaded", () => {
                 content.style.height = '0px'; // Reset instantly
                 // Force layout reflow
                 content.offsetHeight;
-                
+
                 content.style.height = height;
                 content.style.opacity = '1';
-                
+
                 icon.setAttribute('data-lucide', 'minus');
                 icon.classList.add('text-brand-red');
                 icon.classList.remove('text-black/50');
@@ -374,146 +381,128 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // ======== Testimonial Slider Logic (Infinite Circular Drag) ========
-    const track = document.getElementById('testimonial-track');
-    
-    if (track) {
-        const originalCards = Array.from(track.querySelectorAll('.testimonial-card'));
-        const totalOriginals = originalCards.length;
-        
-        // Clone for infinite effect (2 at start, 2 at end)
-        function createClone(card) {
-            const clone = card.cloneNode(true);
-            // Reset any elements that might have already been animated
-            clone.querySelectorAll('.observe-split-text').forEach(el => {
-                const originalText = el.getAttribute('data-text') || el.innerText;
-                el.innerHTML = originalText; // Restore original text for the observer to process
-                el.setAttribute('data-text', originalText);
-                el.classList.add('opacity-0');
-            });
-            return clone;
-        }
+    // ======== Testimonial Vertical Reveal Logic ========
+    const revealCards = document.querySelectorAll('.testimonial-reveal-card');
+    const dragHandle = document.getElementById('testimonial-drag-handle');
+    const totalCards = revealCards.length;
+    let testimonialIndex = 0;
+    let testimonialTimer;
+    let isDragging = false;
+    const stripeContainer = document.querySelector('.testimonials-stripe-container .w-5');
 
-        const clonesStart = originalCards.slice(-2).map(c => createClone(c));
-        const clonesEnd = originalCards.slice(0, 2).map(c => createClone(c));
-        
-        clonesStart.reverse().forEach(clone => {
-            track.insertBefore(clone, track.firstChild);
-            clone.querySelectorAll('.observe-split-text').forEach(el => {
-                observer.observe(el);
-            });
-        });
-        clonesEnd.forEach(clone => {
-            track.appendChild(clone);
-            clone.querySelectorAll('.observe-split-text').forEach(el => {
-                observer.observe(el);
-            });
-        });
-
-        const intervalTime = 5000;
-        let isDragging = false;
-        let startX, scrollLeft;
-        let autoPlayTimer;
-
-        // Positioning for the first real card
-        const cardGap = 24; 
-        const getCardWidth = () => originalCards[0].offsetWidth + cardGap;
-        
-        const initSlider = () => {
-            track.style.scrollBehavior = 'auto';
-            track.scrollLeft = getCardWidth() * 2;
-        };
-        
-        window.addEventListener('load', initSlider);
-        window.addEventListener('resize', initSlider);
-
-        // Infinite Boundary Check
-        function checkBounds() {
-            const width = getCardWidth();
-            const currentScroll = track.scrollLeft;
-            
-            if (currentScroll >= width * (totalOriginals + 2)) {
-                track.style.scrollBehavior = 'auto';
-                track.scrollLeft = width * 2;
-            } else if (currentScroll <= width * 0.5) {
-                track.style.scrollBehavior = 'auto';
-                track.scrollLeft = width * totalOriginals;
+    function updateTestimonials(index) {
+        revealCards.forEach((card, i) => {
+            card.classList.remove('active-card', 'prev-card');
+            if (i === index) {
+                card.classList.add('active-card');
+            } else if (i === (index - 1 + totalCards) % totalCards) {
+                card.classList.add('prev-card');
             }
-        }
-
-        // Snapping logic
-        function snapToCard() {
-            const width = getCardWidth();
-            const index = Math.round(track.scrollLeft / width);
-            track.style.scrollBehavior = 'smooth';
-            track.scrollLeft = index * width;
-            
-            // Re-sync after animation
-            setTimeout(checkBounds, 600);
-        }
-
-        // Mouse Dragging
-        track.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            track.classList.add('grabbing');
-            track.style.scrollBehavior = 'auto'; // Immediate response during drag
-            startX = e.pageX - track.offsetLeft;
-            scrollLeft = track.scrollLeft;
-            clearInterval(autoPlayTimer);
         });
 
-        const handleStop = () => {
+        // Update drag handle position on the vertical stripe
+        if (dragHandle && !isDragging) {
+            const percentage = (index / (totalCards - 1)) * 100;
+            dragHandle.style.top = `${percentage}%`;
+        }
+
+        // Trigger Lucide icon refresh
+        if (window.lucide) {
+            window.lucide.createIcons();
+        }
+    }
+
+    function handleDrag(e) {
+        if (!isDragging || !stripeContainer) return;
+        
+        const rect = stripeContainer.getBoundingClientRect();
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+        const y = clientY - rect.top;
+        let percentage = (y / rect.height) * 100;
+        
+        // Constrain percentage between 0 and 100
+        percentage = Math.max(0, Math.min(100, percentage));
+        
+        // Directly move for real-time feedback
+        dragHandle.style.transition = 'none';
+        dragHandle.style.top = `${percentage}%`;
+
+        // Scrutinize Snap Points
+        const newIndex = Math.round((percentage / 100) * (totalCards - 1));
+        if (newIndex !== testimonialIndex) {
+            testimonialIndex = newIndex;
+            updateTestimonials(testimonialIndex);
+        }
+    }
+
+    if (dragHandle) {
+        const startDrag = (e) => {
+            e.preventDefault(); // Prevent browser drag behavior
+            isDragging = true;
+            stopTestimonialRotation();
+        };
+
+        const endDrag = () => {
             if (!isDragging) return;
             isDragging = false;
-            track.classList.remove('grabbing');
-            snapToCard();
-            startAutoPlay();
+            // Snapping behavior
+            dragHandle.style.transition = 'top 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            const percentage = (testimonialIndex / (totalCards - 1)) * 100;
+            dragHandle.style.top = `${percentage}%`;
+            
+            startTestimonialRotation();
+
         };
 
-        track.addEventListener('mouseleave', handleStop);
-        track.addEventListener('mouseup', handleStop);
-
-        track.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            e.preventDefault();
-            const x = e.pageX - track.offsetLeft;
-            const walk = (x - startX) * 1.5; // Drag sensitivity
-            track.scrollLeft = scrollLeft - walk;
-        });
-
-        // Autoplay
-        function startAutoPlay() {
-            clearInterval(autoPlayTimer);
-            autoPlayTimer = setInterval(() => {
-                checkBounds();
-                setTimeout(() => {
-                    track.style.scrollBehavior = 'smooth';
-                    track.scrollLeft += getCardWidth();
-                    // Optional: re-check after smooth scroll to handle end transition
-                    setTimeout(checkBounds, 600);
-                }, 50);
-            }, intervalTime);
-        }
-
-        startAutoPlay();
+        dragHandle.addEventListener('mousedown', startDrag);
+        dragHandle.addEventListener('touchstart', startDrag, { passive: false });
         
-        // Touch support
-        track.addEventListener('touchstart', (e) => {
-            clearInterval(autoPlayTimer);
-            isDragging = true;
-            startX = e.touches[0].pageX - track.offsetLeft;
-            scrollLeft = track.scrollLeft;
-            track.style.scrollBehavior = 'auto';
-        }, {passive: true});
+        window.addEventListener('mousemove', handleDrag);
+        window.addEventListener('touchmove', handleDrag, { passive: false });
+        
+        window.addEventListener('mouseup', endDrag);
+        window.addEventListener('touchend', endDrag);
+    }
 
-        track.addEventListener('touchend', handleStop);
+    function startTestimonialRotation() {
+        stopTestimonialRotation();
+        testimonialTimer = setInterval(() => {
+            testimonialIndex = (testimonialIndex + 1) % totalCards;
+            updateTestimonials(testimonialIndex);
+        }, 3000); 
+    }
 
-        track.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            const x = e.touches[0].pageX - track.offsetLeft;
-            const walk = (x - startX) * 1.5;
-            track.scrollLeft = scrollLeft - walk;
-        }, {passive: true});
+    function stopTestimonialRotation() {
+        if (testimonialTimer) {
+            clearInterval(testimonialTimer);
+        }
+    }
+
+    // Direct jump on dot points click
+    document.querySelectorAll('.dot-indicator').forEach(dot => {
+        dot.addEventListener('click', () => {
+            const index = parseInt(dot.getAttribute('data-index'));
+            testimonialIndex = index;
+            updateTestimonials(testimonialIndex);
+            
+            // Re-start timer if not dragging
+            if (!isDragging) {
+                startTestimonialRotation();
+            }
+        });
+    });
+
+    if (revealCards.length > 0) {
+        // Initial state
+        updateTestimonials(0);
+        startTestimonialRotation();
+
+
+        
+        // Ensure star icons are created initially
+        if (window.lucide) {
+            window.lucide.createIcons();
+        }
     }
 
     // 12. Custom Cursor with minor delay
@@ -539,13 +528,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const animateCursor = () => {
             const dx = mouseX - cursorX;
             const dy = mouseY - cursorY;
-            
+
             // Trailing delay factor
             cursorX += dx * 0.15;
             cursorY += dy * 0.15;
 
             cursorEl.style.transform = `translate3d(${cursorX}px, ${cursorY}px, 0) translate(-50%, -50%)`;
-            
+
             requestAnimationFrame(animateCursor);
         };
 
